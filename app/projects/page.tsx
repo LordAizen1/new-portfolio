@@ -9,6 +9,49 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+// Map of technology tags to their descriptions
+const tagDescriptions: Record<string, string> = {
+  "Machine Learning": "AI algorithms that improve automatically through experience",
+  "Cryptography": "Techniques for secure communication in the presence of adversaries",
+  "Python": "High-level programming language",
+  "React 18": "JavaScript library for building user interfaces",
+  "TailwindCSS": "Utility-first CSS framework",
+  "Node.js": "JavaScript runtime built on Chrome's V8 engine",
+  "Express.js": "Minimal web framework for Node.js",
+  "MongoDB": "Document-oriented NoSQL database",
+  "OpenAI API": "AI models for natural language processing",
+  "Google Veo API": "AI video generation API",
+  "FFmpeg": "Multimedia framework for audio/video processing",
+  "JWT": "JSON Web Tokens for authentication",
+  "Next.js": "React framework for production applications",
+  "TypeScript": "Typed superset of JavaScript",
+  "ShadCN": "Re-usable components built with Radix UI and Tailwind CSS",
+  "Vite": "Fast build tool for modern web projects",
+  "Redux Toolkit": "Predictable state container for JavaScript apps",
+  "Tailwind CSS": "Utility-first CSS framework",
+  "PyTorch": "Machine learning framework",
+  "Transformers": "Library for state-of-the-art NLP",
+  "FastAPI": "Modern web framework for building APIs",
+  "Docker": "Containerization platform",
+  "Flask": "Lightweight web framework for Python",
+  "spaCy": "Library for advanced NLP",
+  "VADER": "Sentiment analysis tool",
+  "Data Analytics": "Process of examining datasets to draw conclusions",
+  "Statistical Analysis": "Mathematical analysis of data",
+  "Tableau": "Data visualization software",
+  "Kotlin": "Cross-platform programming language",
+  "Jetpack Compose": "Modern toolkit for building native UI in Android",
+  "TensorFlow Lite": "Lightweight solution for mobile and embedded devices",
+  "CameraX": "Android library for camera functionality",
+  "ML Kit": "Mobile SDK for on-device ML",
+};
 
 const projects = [
   {
@@ -69,16 +112,25 @@ const ProjectsPage = () => {
                 <CardDescription>{project.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                {/* You can add more content here, like an image */}
+
               </CardContent>
               <CardFooter>
-                <div className="flex flex-wrap">
-                  {project.tags.map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="outline" className="mr-2 mb-2">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                <TooltipProvider>
+                  <div className="flex flex-wrap">
+                    {project.tags.map((tag, tagIndex) => (
+                      <Tooltip key={tagIndex}>
+                        <TooltipTrigger asChild>
+                          <Badge variant="outline" className="mr-2 mb-2 cursor-pointer">
+                            {tag}
+                          </Badge>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{tagDescriptions[tag] || tag}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    ))}
+                  </div>
+                </TooltipProvider>
               </CardFooter>
             </Card>
           </a>
