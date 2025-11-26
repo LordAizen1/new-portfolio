@@ -9,4 +9,5 @@ This project serves as my personal portfolio, showcasing my skills and projects.
 *   [React](https://reactjs.org/)
 *   [Tailwind CSS](https://tailwindcss.com/)
 *   [shadcn-ui](https://ui.shadcn.com/)
+*   [Magic UI](https://magicui.design/)
 *   [TypeScript](https://www.typescriptlang.org/)
