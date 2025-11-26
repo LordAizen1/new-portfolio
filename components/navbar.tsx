@@ -18,8 +18,8 @@ export function Navbar() {
     <NavigationMenu >
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/" className={navigationMenuTriggerStyle()}>
-            <span className="flex items-center gap-2">
+          <Link href="/" className={cn(navigationMenuTriggerStyle(), "hover:bg-purple-600 hover:text-white focus:bg-purple-600 focus:text-white")}>
+            <span className="flex items-center gap-2 ">
               <Home />
               Home
             </span>
@@ -27,7 +27,7 @@ export function Navbar() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/projects" className={navigationMenuTriggerStyle()}>
+          <Link href="/projects" className={cn(navigationMenuTriggerStyle(), "hover:bg-purple-600 hover:text-white focus:bg-purple-600 focus:text-white")}>
             <span className="flex items-center gap-2">
               <Projector />
               Projects
@@ -36,7 +36,7 @@ export function Navbar() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/experience" className={navigationMenuTriggerStyle()}>
+          <Link href="/experience" className={cn(navigationMenuTriggerStyle(), "hover:bg-purple-600 hover:text-white focus:bg-purple-600 focus:text-white")}>
             <span className="flex items-center gap-2">
               <User />
               Experience

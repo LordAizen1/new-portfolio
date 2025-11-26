@@ -3,6 +3,9 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 
+import { GridPattern } from "@/components/ui/grid-pattern";
+import { cn } from "@/lib/utils";
+
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,11 +20,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${spaceGrotesk.className} min-h-screen mx-2  p-2 sm:p-4 md:p-6`}>
+      <body className={`${spaceGrotesk.className} min-h-screen mx-2 p-2 sm:p-4 md:p-6 relative`}>
+        <div className="fixed inset-0 z-[-1] overflow-hidden">
+          <GridPattern
+            width={30}
+            height={30}
+            x={-1}
+            y={-1}
+            strokeDasharray={"4 2"}
+            className={cn(
+              "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
+            )}
+          />
+        </div>
         <div className="flex justify-center">
           <Navbar />
         </div>
-        <main className="container mx-auto">{children}</main>
+        <main className="container mx-auto">
+          {children}
+        </main>
       </body>
     </html>
   );

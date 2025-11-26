@@ -12,12 +12,22 @@ import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 
 const experiences = [
   {
+    title: "Full Stack AI Engineer",
+    company: "Kuzushi Labs",
+    duration: "November 2025 - Present",
+    description: "Designing and developing cutting-edge web applications with seamless AI integration. Leveraging modern web technologies and AI models to create intelligent user experiences.",
+    link: "https://www.kuzushilabs.xyz/",
+  },
+  {
     title: "Intern, LLM Engineer",
     company: "Alpine Privacy",
     duration: "June 2025 - Aug 2025",
     description: "Build and fine-tuned LLM-based agentic applications for privacy-centric use cases. Contributed to the development of scalable AI pipelines in a fast-paced startup environment. Utilized various tools such as NER, LLMs to accelerate model development and deployment.",
     link: "https://alpineprivacy.com/",
   },
+];
+
+const openSourceContributions = [
   {
     title: "Open Source Contributor — IIITD-PYQs",
     company: "IIITD-PYQs",
@@ -69,6 +79,23 @@ const ExperiencePage = () => {
               </CardHeader>
               <CardContent>
                 <p>{experience.description}</p>
+              </CardContent>
+            </Card>
+          </a>
+        ))}
+      </div>
+
+      <h2 className="text-2xl font-bold mt-12 mb-4">Open Source Contributions</h2>
+      <div className="grid grid-cols-1 gap-8">
+        {openSourceContributions.map((contribution, index) => (
+          <a href={contribution.link} key={index} target="_blank" rel="noopener noreferrer">
+            <Card className="hover:shadow-lg transition-shadow hover:scale-105 transition-transform">
+              <CardHeader>
+                <CardTitle className='text-purple-600 font-bold'>{contribution.title}</CardTitle>
+                <CardDescription>{contribution.company} | {contribution.duration}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>{contribution.description}</p>
               </CardContent>
             </Card>
           </a>
