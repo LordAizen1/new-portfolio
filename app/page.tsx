@@ -9,6 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ContactLinks } from "@/components/contact-links";
+import { TechStackCloud } from "@/components/tech-stack-cloud";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 export default function Home() {
   return (
@@ -52,6 +54,25 @@ export default function Home() {
         </div>
       </main>
       <ContactLinks />
+
+      {/* Tech Stack Dialog - Triggered by Rainbow Button */}
+      <div className="fixed bottom-6 left-6 z-50">
+        <Dialog>
+          <DialogTrigger asChild>
+            <RainbowButton size="sm">
+              ✨ Tech Stack
+            </RainbowButton>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-center text-2xl">Technologies I Work With</DialogTitle>
+            </DialogHeader>
+            <div className="flex items-center justify-center py-8">
+              <TechStackCloud />
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 }
