@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { MagicCard } from "@/components/ui/magic-card";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import {
@@ -106,33 +107,35 @@ const ProjectsPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-2">
         {projects.map((project, index) => (
           <a href={project.link} key={index} target="_blank" rel="noopener noreferrer">
-            <Card className="cursor-pointer hover:shadow-lg transition-shadow h-full hover:scale-105 transition-transform">
-              <CardHeader>
-                <CardTitle className='text-purple-600 font-bold'>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
+            <MagicCard className="cursor-pointer hover:shadow-lg transition-shadow h-full rounded-xl">
+              <div className="flex flex-col gap-6 py-6 h-full w-full">
+                <CardHeader>
+                  <CardTitle className='text-purple-600 font-bold'>{project.title}</CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
 
-              </CardContent>
-              <CardFooter>
-                <TooltipProvider>
-                  <div className="flex flex-wrap">
-                    {project.tags.map((tag, tagIndex) => (
-                      <Tooltip key={tagIndex}>
-                        <TooltipTrigger asChild>
-                          <Badge variant="outline" className="mr-2 mb-2 cursor-pointer">
-                            {tag}
-                          </Badge>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{tagDescriptions[tag] || tag}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    ))}
-                  </div>
-                </TooltipProvider>
-              </CardFooter>
-            </Card>
+                </CardContent>
+                <CardFooter>
+                  <TooltipProvider>
+                    <div className="flex flex-wrap">
+                      {project.tags.map((tag, tagIndex) => (
+                        <Tooltip key={tagIndex}>
+                          <TooltipTrigger asChild>
+                            <Badge variant="outline" className="mr-2 mb-2 cursor-pointer">
+                              {tag}
+                            </Badge>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{tagDescriptions[tag] || tag}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      ))}
+                    </div>
+                  </TooltipProvider>
+                </CardFooter>
+              </div>
+            </MagicCard>
           </a>
         ))}
       </div>
