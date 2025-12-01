@@ -77,7 +77,7 @@ const projects = [
     title: "Document Privacy (DP-Fusion)",
     description: "An enterprise-grade document sanitization platform that automatically removes sensitive information from business documents while maintaining document integrity.",
     tags: ["React 18.3", "TypeScript", "Vite", "Redux Toolkit", "Tailwind CSS", "Node.js", "PyTorch", "Transformers", "FastAPI", "Docker"],
-    link: "https://documentprivacy.com/",
+    link: "https://www.documentprivacy.com/",
   },
   {
     title: "FinSight-NLP-App",
