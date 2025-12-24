@@ -44,55 +44,77 @@ const tagDescriptions: Record<string, string> = {
   "Flask": "Lightweight web framework for Python",
   "spaCy": "Library for advanced NLP",
   "VADER": "Sentiment analysis tool",
-  "Data Analytics": "Process of examining datasets to draw conclusions",
-  "Statistical Analysis": "Mathematical analysis of data",
-  "Tableau": "Data visualization software",
+
   "Kotlin": "Cross-platform programming language",
   "Jetpack Compose": "Modern toolkit for building native UI in Android",
   "TensorFlow Lite": "Lightweight solution for mobile and embedded devices",
   "CameraX": "Android library for camera functionality",
   "ML Kit": "Mobile SDK for on-device ML",
+  "Three.js": "JavaScript 3D library",
+  "React Three Fiber": "React renderer for Three.js",
+  "OGL": "Minimal WebGL library",
+  "Framer Motion": "Motion library for React",
+  "React 19": "Latest version of React",
+  "wawa-lipsync": "Lip sync library for 3D characters",
+  "LiveKit": "Real-time video and audio infrastructure",
+  "Zustand": "Small, fast and scalable bearbones state-management solution",
+  "TanStack Query": "Powerful asynchronous state management",
+  "STS Integration": "Society of Thoracic Surgeons risk calculator integration",
 };
 
 const projects = [
   {
+    title: "Anowmly Studio",
+    organization: "Kuzushi Labs",
+    description: "A creative platform merging human artistry with AI precision. Features an immersive 3D experience with complex animations and a custom design system.",
+    tags: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber", "OGL", "Framer Motion"],
+    link: "https://www.anowmly.com/",
+  },
+  {
+    title: "Chitchat",
+    organization: "Kuzushi Labs",
+    description: "A real-time AI companion platform featuring immersive 3D avatar interactions and low-latency voice communication. Optimized for performance and seamless user/AI interaction.",
+    tags: ["React 19", "Tailwind CSS", "Three.js", "wawa-lipsync", "LiveKit", "Framer Motion", "Zustand", "TanStack Query"],
+    link: "#",
+  },
+  {
+    title: "Cordia",
+    organization: "Kuzushi Labs",
+    description: "A Cardiology Risk Score application providing real-time patient data analysis. Features a critical STS integration for automated risk score calculation.",
+    tags: ["React", "Tailwind CSS", "STS Integration"],
+    link: "https://cordia.kuzushilabs.xyz/login",
+  },
+  {
     title: "Classical Cipher Identification Using Machine Learning",
+    organization: "IIIT-Delhi",
     description: "BTech Project (BTP) under Dr. Ravi Anand at IIIT-Delhi (Aug 2025 - Present). Training machine learning models to automatically identify classical cipher types from ciphertext using statistical and structural patterns.",
     tags: ["Machine Learning", "Cryptography", "Python"],
     link: "https://iiitd.ac.in/",
   },
   {
     title: "AI For Architects",
+    organization: "Alpine Privacy",
     description: "A comprehensive AI-powered platform that transforms architectural visualization through intelligent design generation and dynamic video creation.",
     tags: ["React 18", "TailwindCSS", "Node.js", "Express.js", "MongoDB", "OpenAI API", "Google Veo API", "FFmpeg", "JWT"],
     link: "https://ai-for-architects.com",
   },
   {
-    title: "dashboard",
-    description: "A modern dashboard application built with Next.js 16, TypeScript, and Tailwind CSS. Features include accessible UI components (Radix UI, Shadcn UI), theme management, robust form handling (React Hook Form, Zod), data tables, and Recharts for data visualization. Optimized for Vercel deployment.",
-    tags: ["Next.js", "TypeScript", "TailwindCSS", "ShadCN"],
-    link: "https://dashboard-mu-topaz.vercel.app/"
-  },
-  {
     title: "Document Privacy (DP-Fusion)",
+    organization: "Alpine Privacy",
     description: "An enterprise-grade document sanitization platform that automatically removes sensitive information from business documents while maintaining document integrity.",
     tags: ["React 18.3", "TypeScript", "Vite", "Redux Toolkit", "Tailwind CSS", "Node.js", "PyTorch", "Transformers", "FastAPI", "Docker"],
     link: "https://www.documentprivacy.com/",
   },
   {
     title: "FinSight-NLP-App",
+    organization: "Self",
     description: "A web app that performs NLP on financial text using a custom-trained spaCy model. It identifies custom entities (Stocks, Financial Events) and analyzes sentiment with VADER.",
     tags: ["Python", "Flask", "spaCy", "VADER"],
     link: "https://finsight-app-md6v.onrender.com/",
   },
   {
-    title: "U.S. Lightning Strikes Analysis",
-    description: "A comprehensive data visualization project analyzing 13+ million U.S. lightning strike records (2009-2018) to uncover critical meteorological patterns.",
-    tags: ["Tableau", "Python", "Data Analytics", "Statistical Analysis"],
-    link: "https://public.tableau.com/app/profile/md.kaif8168/viz/U_S_LightningStrikesStory/U_S_LightningStrikesStory",
-  },
-  {
     title: "Multi-Scan App",
+    organization: "Self",
     description: "A sophisticated Android application that combines document scanning capabilities with real-time landmark recognition using advanced machine learning.",
     tags: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "CameraX", "ML Kit"],
     link: "https://github.com/LordAizen1/Multi-Scan-App",
@@ -110,8 +132,13 @@ const ProjectsPage = () => {
             <MagicCard className="cursor-pointer hover:shadow-lg transition-shadow h-full rounded-xl">
               <div className="flex flex-col gap-6 py-6 h-full w-full">
                 <CardHeader>
-                  <CardTitle className='text-purple-600 font-bold'>{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
+                  <div className="flex justify-between items-start gap-2">
+                    <CardTitle className='text-purple-600 font-bold leading-tight'>{project.title}</CardTitle>
+                    <Badge variant="secondary" className="shrink-0">
+                      {project.organization}
+                    </Badge>
+                  </div>
+                  <CardDescription className="mt-2">{project.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
 
