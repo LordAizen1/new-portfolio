@@ -60,9 +60,20 @@ const tagDescriptions: Record<string, string> = {
   "Zustand": "Small, fast and scalable bearbones state-management solution",
   "TanStack Query": "Powerful asynchronous state management",
   "STS Integration": "Society of Thoracic Surgeons risk calculator integration",
+  "Next.js 16": "Latest React framework for production applications",
+  "Tailwind CSS 4": "Next-generation utility-first CSS framework",
+  "Lenis": "Smooth scrolling library",
+  "Cloudinary": "Cloud-based image and video management",
 };
 
 const projects = [
+  {
+    title: "Kuzushi Labs",
+    organization: "Kuzushi Labs",
+    description: "Designed and developed the complete corporate website featuring an \"Industrial Luxury\" design system, custom animated backgrounds, scroll-triggered animations, and rich UI components. Integrated Google Sheets contact form, Cloudinary optimization, and global audio.",
+    tags: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Lenis", "Cloudinary"],
+    link: "https://www.kuzushilabs.ai/",
+  },
   {
     title: "Anowmly Studio",
     organization: "Kuzushi Labs",
