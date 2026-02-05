@@ -64,9 +64,20 @@ const tagDescriptions: Record<string, string> = {
   "Tailwind CSS 4": "Next-generation utility-first CSS framework",
   "Lenis": "Smooth scrolling library",
   "Cloudinary": "Cloud-based image and video management",
+  "PostgreSQL": "Open-source relational database management system",
+  "Prisma": "Next-generation ORM for Node.js and TypeScript",
+  "Auth.js": "Authentication library for modern web applications",
+  "Agenda.js": "Lightweight job scheduling library for Node.js",
 };
 
 const projects = [
+  {
+    title: "GradeDash",
+    organization: "Self",
+    description: "An AI-powered academic dashboard for IIIT-Delhi students. Features AI transcript parsing using GPT-4o, a RAG-powered chatbot for querying B.Tech regulations, interactive SGPA/CGPA visualization, and a graduation requirements tracker across 7 branches — all backed by PostgreSQL, Prisma ORM, and Auth.js authentication.",
+    tags: ["Next.js 16", "TypeScript", "PostgreSQL", "Prisma", "Auth.js", "OpenAI API", "Tailwind CSS 4", "Docker"],
+    link: "https://grade-dash.vercel.app/",
+  },
   {
     title: "Kuzushi Labs",
     organization: "Kuzushi Labs",
@@ -80,6 +91,13 @@ const projects = [
     description: "A creative platform merging human artistry with AI precision. Features an immersive 3D experience with complex animations and a custom design system.",
     tags: ["Next.js", "Tailwind CSS", "Three.js", "React Three Fiber", "OGL", "Framer Motion"],
     link: "https://www.anowmly.com/",
+  },
+  {
+    title: "Audio Sales Evaluator",
+    organization: "Kuzushi Labs",
+    description: "An AI-powered sales coaching tool that transcribes dealer audio calls using OpenAI Whisper and evaluates them across 11 performance parameters using GPT-4o. Features speaker diarization, evidence-based scoring, and asynchronous background job processing.",
+    tags: ["Next.js", "TypeScript", "MongoDB", "OpenAI API", "Agenda.js", "Tailwind CSS"],
+    link: "https://audio-evaluator.vercel.app/",
   },
   {
     title: "Chitchat",
