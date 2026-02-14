@@ -9,8 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ContactLinks } from "@/components/contact-links";
-import { TechStackCloud } from "@/components/tech-stack-cloud";
-import { RainbowButton } from "@/components/ui/rainbow-button";
+import { TechStackCarousel } from "@/components/tech-stack-carousel";
 
 export default function Home() {
   return (
@@ -55,23 +54,9 @@ export default function Home() {
       </main>
       <ContactLinks />
 
-      {/* Tech Stack Dialog - Triggered by Rainbow Button */}
-      <div className="fixed bottom-6 left-6 z-50">
-        <Dialog>
-          <DialogTrigger asChild>
-            <RainbowButton size="sm">
-              ✨ Tech Stack
-            </RainbowButton>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle className="text-center text-2xl">Technologies I Work With</DialogTitle>
-            </DialogHeader>
-            <div className="flex items-center justify-center py-8">
-              <TechStackCloud />
-            </div>
-          </DialogContent>
-        </Dialog>
+      {/* Tech Stack Marquee */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 [mask-image:linear-gradient(to_right,transparent,black_25%,black_75%,transparent)]">
+        <TechStackCarousel />
       </div>
     </div>
   );

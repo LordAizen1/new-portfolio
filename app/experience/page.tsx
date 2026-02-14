@@ -12,19 +12,26 @@ import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 
 const experiences = [
   {
-    title: "Full Stack AI Engineer",
+    title: "Software Engineer Intern, Part-Time",
+    company: "2070 Health",
+    duration: "Dec 2025 - Present",
+    description: "Building and maintaining a production Next.js/React/TypeScript healthcare platform serving real patients. Leading SSR migrations, debugging Docker build pipelines, fixing SEO and meta tag issues at scale, and improving site reliability through link audits and infrastructure fixes.",
+    link: "https://2070health.com/",
+  },
+  {
+    title: "Full Stack AI Engineer Intern",
     company: "Kuzushi Labs",
     duration: "November 2025 - Present",
     description: "Designing and developing cutting-edge web applications with seamless AI integration. Leveraging modern web technologies and AI models to create intelligent user experiences.",
     link: "https://www.kuzushilabs.xyz/",
   },
-  {
-    title: "Intern, LLM Engineer",
-    company: "Alpine Privacy",
-    duration: "June 2025 - Aug 2025",
-    description: "Build and fine-tuned LLM-based agentic applications for privacy-centric use cases. Contributed to the development of scalable AI pipelines in a fast-paced startup environment. Utilized various tools such as NER, LLMs to accelerate model development and deployment.",
-    link: "https://alpineprivacy.com/",
-  },
+  // {
+  //   title: "Intern, LLM Engineer",
+  //   company: "Alpine Privacy",
+  //   duration: "June 2025 - Aug 2025",
+  //   description: "Build and fine-tuned LLM-based agentic applications for privacy-centric use cases. Contributed to the development of scalable AI pipelines in a fast-paced startup environment. Utilized various tools such as NER, LLMs to accelerate model development and deployment.",
+  //   link: "https://alpineprivacy.com/",
+  // },
 ];
 
 const openSourceContributions = [
