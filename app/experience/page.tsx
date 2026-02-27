@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import React from 'react';
+
+export const metadata: Metadata = {
+  title: "Experience",
+  description:
+    "Mohammad Kaif's work experience, open-source contributions, education, and achievements in software engineering.",
+};
 import {
   Card,
   CardContent,

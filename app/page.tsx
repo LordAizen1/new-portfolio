@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Mohammad Kaif — final-year CS student at IIIT-Delhi, developer, and problem solver. Explore my projects and experience.",
+};
 import { Library, FileText } from "lucide-react";
 import Link from "next/link";
 import {
