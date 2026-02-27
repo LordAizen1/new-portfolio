@@ -16,13 +16,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from '@radix-ui/react-dropdown-menu';
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { EverHopeLink } from '@/components/everhope-link';
 
 const experiences = [
   {
     title: "Software Engineer Intern, Part-Time",
     company: "2070 Health",
     duration: "Dec 2025 - Present",
-    description: "Building and maintaining a production Next.js/React/TypeScript healthcare platform serving real patients. Leading SSR migrations, debugging Docker build pipelines, fixing SEO and meta tag issues at scale, and improving site reliability through link audits and infrastructure fixes.",
+    description: <>Building and maintaining a production Next.js/React/TypeScript healthcare platform serving real patients. Leading SSR migrations, debugging Docker build pipelines, fixing SEO and meta tag issues at scale, and improving site reliability through link audits and infrastructure fixes. Currently working on <EverHopeLink />.</>,
     link: "https://2070health.com/",
   },
   {
@@ -85,34 +86,30 @@ const ExperiencePage = () => {
       <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
       <div className="grid grid-cols-1 gap-8">
         {experiences.map((experience, index) => (
-          <a href={experience.link} key={index} target="_blank" rel="noopener noreferrer">
-            <Card className="hover:shadow-lg transition-shadow hover:scale-105 transition-transform">
-              <CardHeader>
-                <CardTitle className='text-purple-600 font-bold'>{experience.title}</CardTitle>
-                <CardDescription>{experience.company} | {experience.duration}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>{experience.description}</p>
-              </CardContent>
-            </Card>
-          </a>
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle className='text-purple-600 font-bold'>{experience.title}</CardTitle>
+              <CardDescription>{experience.company} | {experience.duration}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>{experience.description}</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
       <h2 className="text-2xl font-bold mt-12 mb-4">Open Source Contributions</h2>
       <div className="grid grid-cols-1 gap-8">
         {openSourceContributions.map((contribution, index) => (
-          <a href={contribution.link} key={index} target="_blank" rel="noopener noreferrer">
-            <Card className="hover:shadow-lg transition-shadow hover:scale-105 transition-transform">
-              <CardHeader>
-                <CardTitle className='text-purple-600 font-bold'>{contribution.title}</CardTitle>
-                <CardDescription>{contribution.company} | {contribution.duration}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>{contribution.description}</p>
-              </CardContent>
-            </Card>
-          </a>
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle className='text-purple-600 font-bold'>{contribution.title}</CardTitle>
+              <CardDescription>{contribution.company} | {contribution.duration}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>{contribution.description}</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
@@ -131,16 +128,14 @@ const ExperiencePage = () => {
       <h2 className="text-2xl font-bold mt-12 mb-4">Achievements</h2>
       <div className="grid grid-cols-1 gap-8">
         {achievements.map((achievement, index) => (
-          <a href={achievement.link} key={index} target="_blank" rel="noopener noreferrer">
-            <Card className="hover:shadow-lg transition-shadow hover:scale-105 transition-transform">
-              <CardHeader>
-                <CardTitle className='text-purple-600 font-bold'>{achievement.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>{achievement.description}</p>
-              </CardContent>
-            </Card>
-          </a>
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle className='text-purple-600 font-bold'>{achievement.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>{achievement.description}</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
