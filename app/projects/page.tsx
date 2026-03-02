@@ -75,6 +75,9 @@ const tagDescriptions: Record<string, string> = {
   "Prisma": "Next-generation ORM for Node.js and TypeScript",
   "Auth.js": "Authentication library for modern web applications",
   "Agenda.js": "Lightweight job scheduling library for Node.js",
+  "HTML/CSS/JS": "Core web technologies for building websites",
+  "GSAP": "Professional-grade animation library for the web",
+  "SplitType": "JavaScript library for splitting text into characters, words, and lines",
 };
 
 const projects = [
@@ -154,6 +157,13 @@ const projects = [
     description: "A sophisticated Android application that combines document scanning capabilities with real-time landmark recognition using advanced machine learning.",
     tags: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "CameraX", "ML Kit"],
     link: "https://github.com/LordAizen1/Multi-Scan-App",
+  },
+  {
+    title: "Clowder — A Love Letter to Cats",
+    organization: "Hobby",
+    description: "A cinematic, scroll-driven love letter to cats. Features a photographic preloader, GSAP-powered scroll animations, pinned panel stacking, horizontal filmstrip gallery, masonry cat photo grid, and smooth Lenis scrolling — all wrapped in a moody, editorial design.",
+    tags: ["HTML/CSS/JS", "Tailwind CSS", "GSAP", "Lenis", "SplitType"],
+    link: "https://clowder-eosin.vercel.app/",
   },
 ];
 

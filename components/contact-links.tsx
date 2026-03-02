@@ -4,7 +4,7 @@ import { Mail, Linkedin, Github } from "lucide-react";
 
 export function ContactLinks() {
   return (
-    <div className="fixed bottom-4 right-4">
+    <div className="fixed bottom-4 right-4 z-[60]">
       <div className="flex flex-col items-end">
         <p className="text-sm font-bold mb-2">Contact</p>
         <div className="flex gap-4">
