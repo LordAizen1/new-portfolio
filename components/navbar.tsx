@@ -115,6 +115,14 @@ export function Navbar() {
     holdRafRef.current = requestAnimationFrame(step);
   };
 
+  const handleTouchStart = () => {
+    startHoldToOpen();
+  };
+
+  const handleTouchEnd = () => {
+    cancelHoldToOpen();
+  };
+
   const activeIndex = Math.max(
     navItems.findIndex(({ href }) =>
       href === "/" ? pathname === "/" : pathname.startsWith(href)
@@ -177,9 +185,9 @@ export function Navbar() {
       <button
         type="button"
         aria-label="Long press to open a hidden project"
-        onTouchStart={startHoldToOpen}
-        onTouchEnd={cancelHoldToOpen}
-        onTouchCancel={cancelHoldToOpen}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         className={cn(
           "relative inline-flex select-none touch-none items-center gap-1.5 overflow-hidden rounded-full border border-purple-500/20 bg-background/50 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-foreground/45 backdrop-blur-sm md:hidden",
           isHolding && "border-purple-500/40 text-foreground/75"
