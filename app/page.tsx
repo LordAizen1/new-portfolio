@@ -57,14 +57,12 @@ export default function Home() {
               </DialogContent>
             </Dialog>
           </div>
+          <div className="mt-20 w-full max-w-md px-4 [mask-image:linear-gradient(to_right,transparent,black_25%,black_75%,transparent)]">
+            <TechStackCarousel />
+          </div>
         </div>
       </main>
       <ContactLinks />
-
-      {/* Tech Stack Marquee */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 [mask-image:linear-gradient(to_right,transparent,black_25%,black_75%,transparent)]">
-        <TechStackCarousel />
-      </div>
     </div>
   );
 }
