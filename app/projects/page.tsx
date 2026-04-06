@@ -51,6 +51,10 @@ const tagDescriptions: Record<string, string> = {
   "Flask": "Lightweight web framework for Python",
   "spaCy": "Library for advanced NLP",
   "VADER": "Sentiment analysis tool",
+  "MCTS": "Monte Carlo Tree Search for exploring and scoring decision paths",
+  "Pydantic": "Data validation library for Python using type hints",
+  "Gemini API": "Google's API for Gemini models",
+  "Anthropic API": "API for Anthropic Claude models",
 
   "Kotlin": "Cross-platform programming language",
   "Jetpack Compose": "Modern toolkit for building native UI in Android",
@@ -87,6 +91,13 @@ const projects = [
     description: "An AI-powered academic dashboard for IIIT-Delhi students. Features AI transcript parsing using GPT-4o, a RAG-powered chatbot for querying B.Tech regulations, interactive SGPA/CGPA visualization, and a graduation requirements tracker across 7 branches — all backed by PostgreSQL, Prisma ORM, and Auth.js authentication.",
     tags: ["Next.js 16", "TypeScript", "PostgreSQL", "Prisma", "Auth.js", "OpenAI API", "Tailwind CSS 4", "Docker"],
     link: "https://grade-dash.vercel.app/",
+  },
+  {
+    title: "ToolTree",
+    organization: "Self",
+    description: "An open-source, pip-installable Python implementation of the ToolTree paper for LLM agent tool planning. Uses dual-feedback Monte Carlo Tree Search with bidirectional pruning to explore multi-step tool sequences, prune weak branches early, cache duplicate tool calls, and support OpenAI, Gemini, and Anthropic providers.",
+    tags: ["Python", "MCTS", "Pydantic", "OpenAI API", "Gemini API", "Anthropic API"],
+    link: "https://github.com/LordAizen1/ToolTree",
   },
   {
     title: "Kuzushi Labs",
