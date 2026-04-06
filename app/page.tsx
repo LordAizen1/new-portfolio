@@ -20,18 +20,18 @@ import { TechStackCarousel } from "@/components/tech-stack-carousel";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center font-sans min-h-[calc(100vh-80px)]">
+    <div className="flex items-center justify-center font-sans min-h-[calc(100vh-80px)] px-4">
       <main className="flex w-full max-w-3xl flex-col items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold mb-4 text-purple-600">
+        <div className="w-full text-center">
+          <h1 className="mb-4 text-4xl font-bold text-purple-600 sm:text-5xl">
             Hello, I'm Mohammad Kaif
           </h1>
-          <p className="text-xl mb-8">
+          <p className="mb-8 text-lg sm:text-xl">
             I'm a final-year Computer Science student and a passionate developer and problem solver.
             I enjoy building impactful software solutions and I'm always eager to learn new
             technologies and skills.
           </p>
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
             <Link href="/projects">
               <Button className="bg-purple-600">
                 <Library />
@@ -57,7 +57,7 @@ export default function Home() {
               </DialogContent>
             </Dialog>
           </div>
-          <div className="mt-20 w-full max-w-md px-4 [mask-image:linear-gradient(to_right,transparent,black_25%,black_75%,transparent)]">
+          <div className="mx-auto mt-12 w-full max-w-md px-2 sm:px-4 [mask-image:linear-gradient(to_right,transparent,black_25%,black_75%,transparent)]">
             <TechStackCarousel />
           </div>
         </div>
