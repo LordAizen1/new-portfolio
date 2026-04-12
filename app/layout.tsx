@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
+import { Sidebar } from "@/components/sidebar";
+import { TopBar } from "@/components/top-bar";
+import { StatusBar } from "@/components/status-bar";
+import { MobileNav } from "@/components/mobile-nav";
 
-import { GridPattern } from "@/components/ui/grid-pattern";
-import { cn } from "@/lib/utils";
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  weight: ["400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://new-portfolio-tan-seven.vercel.app"),
@@ -60,32 +69,30 @@ const jsonLd = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${spaceGrotesk.className} min-h-screen mx-2 p-2 sm:p-4 md:p-6 relative`}>
+    <html
+      lang="en"
+      className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="font-sans">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="fixed inset-0 z-[-1] overflow-hidden">
-          <GridPattern
-            width={30}
-            height={30}
-            x={-1}
-            y={-1}
-            strokeDasharray={"4 2"}
-            className={cn(
-              "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
-            )}
-          />
-        </div>
-        <div className="flex justify-center">
-          <Navbar />
-        </div>
-        <main className="container mx-auto">
+        {/* Scanline overlay */}
+        <div className="scanline fixed inset-0 z-[100] opacity-10 pointer-events-none" />
+
+        {/* Desktop layout */}
+        <Sidebar />
+        <TopBar />
+        <StatusBar />
+
+        {/* Mobile layout */}
+        <MobileNav />
+
+        {/* Main content — fixed scrollable on desktop, normal flow on mobile */}
+        <main className="pt-[104px] pb-[84px] md:pt-0 md:pb-0 md:fixed md:top-16 md:left-64 md:right-0 md:bottom-10 md:overflow-y-auto md:bg-[#000000]">
           {children}
         </main>
       </body>
