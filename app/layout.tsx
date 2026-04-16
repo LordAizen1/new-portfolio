@@ -5,6 +5,7 @@ import { Sidebar } from "@/components/sidebar";
 import { TopBar } from "@/components/top-bar";
 import { StatusBar } from "@/components/status-bar";
 import { MobileNav } from "@/components/mobile-nav";
+import { Analytics } from "@vercel/analytics/next";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -87,6 +88,7 @@ export default function RootLayout({
         <Sidebar />
         <TopBar />
         <StatusBar />
+        <Analytics />
 
         {/* Mobile layout */}
         <MobileNav />
