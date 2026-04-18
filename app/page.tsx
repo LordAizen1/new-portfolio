@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 
 const featuredProjects = [
   {
-    title: "GradeDash",
+    title: "EverMemOS Plugin",
     description:
-      "AI-powered academic dashboard for IIIT-Delhi students — GPT-4o transcript parsing, RAG chatbot, SGPA/CGPA visualizations, graduation tracker.",
-    tags: ["Next.js", "PostgreSQL", "OpenAI API"],
-    link: "https://grade-dash.vercel.app/",
+      "OpenCode plugin implementing durable structured memory — passive capture, automatic recall via system transform, and git-scoped episodic/profile/foresight memory across coding sessions.",
+    tags: ["TypeScript", "OpenCode", "LLM Memory"],
+    link: "https://github.com/LordAizen1/opencode-evermemos-plugin",
     accent: "border-primary",
     tagColor: "text-primary",
     index: "001",
@@ -37,11 +37,11 @@ const featuredProjects = [
     index: "002",
   },
   {
-    title: "Kuzushi Labs",
+    title: "GradeDash",
     description:
-      "Corporate website with Industrial Luxury design system, scroll-triggered animations, GSAP, and Cloudinary optimization.",
-    tags: ["Next.js 16", "Framer Motion", "Lenis"],
-    link: "https://www.kuzushilabs.ai/",
+      "AI-powered academic dashboard for IIIT-Delhi students — GPT-4o transcript parsing, RAG chatbot, SGPA/CGPA visualizations, graduation tracker.",
+    tags: ["Next.js", "PostgreSQL", "OpenAI API"],
+    link: "https://grade-dash.vercel.app/",
     accent: "border-primary",
     tagColor: "text-primary",
     index: "003",

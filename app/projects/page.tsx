@@ -39,6 +39,8 @@ const tagDescriptions: Record<string, string> = {
   Flask: "Lightweight web framework for Python",
   spaCy: "Library for advanced NLP",
   VADER: "Sentiment analysis tool",
+  "OpenCode Plugin": "Extension for the OpenCode AI coding assistant",
+  "LLM Memory": "Persistent memory system for large language model agents",
   MCTS: "Monte Carlo Tree Search for exploring and scoring decision paths",
   Pydantic: "Data validation library for Python using type hints",
   "Gemini API": "Google's API for Gemini models",
@@ -73,12 +75,12 @@ const tagDescriptions: Record<string, string> = {
 
 const projects = [
   {
-    title: "GradeDash",
+    title: "EverMemOS Plugin",
     organization: "Self",
     description:
-      "AI-powered academic dashboard for IIIT-Delhi students. GPT-4o transcript parsing, RAG chatbot for B.Tech regulations, SGPA/CGPA visualization, and graduation tracker across 7 branches.",
-    tags: ["Next.js 16", "TypeScript", "PostgreSQL", "Prisma", "Auth.js", "OpenAI API", "Tailwind CSS 4", "Docker"],
-    link: "https://grade-dash.vercel.app/",
+      "OpenCode plugin implementing durable structured memory across coding sessions. Passive capture, automatic recall via system transform, and git-scoped episodic/profile/foresight memory with vector-based retrieval and privacy sanitization.",
+    tags: ["TypeScript", "Node.js", "Zod", "OpenCode Plugin"],
+    link: "https://github.com/LordAizen1/opencode-evermemos-plugin",
     type: "self",
   },
   {
@@ -91,12 +93,57 @@ const projects = [
     type: "self",
   },
   {
+    title: "Clowder — A Love Letter to Cats",
+    organization: "Hobby",
+    description:
+      "Cinematic scroll-driven experience. Photographic preloader, GSAP scroll animations, pinned panel stacking, horizontal filmstrip gallery, and masonry cat photo grid.",
+    tags: ["HTML/CSS/JS", "Tailwind CSS", "GSAP", "Lenis", "SplitType"],
+    link: "https://clowder-eosin.vercel.app/",
+    type: "self",
+  },
+  {
+    title: "Classical Cipher Identification",
+    organization: "IIIT-Delhi",
+    description:
+      "BTP under Dr. Ravi Anand. Training ML models to automatically identify classical cipher types from ciphertext using statistical and structural patterns.",
+    tags: ["Machine Learning", "Cryptography", "Python"],
+    link: "https://iiitd.ac.in/",
+    type: "academic",
+  },
+  {
+    title: "GradeDash",
+    organization: "Self",
+    description:
+      "AI-powered academic dashboard for IIIT-Delhi students. GPT-4o transcript parsing, RAG chatbot for B.Tech regulations, SGPA/CGPA visualization, and graduation tracker across 7 branches.",
+    tags: ["Next.js 16", "TypeScript", "PostgreSQL", "Prisma", "Auth.js", "OpenAI API", "Tailwind CSS 4", "Docker"],
+    link: "https://grade-dash.vercel.app/",
+    type: "self",
+  },
+  {
+    title: "Chitchat",
+    organization: "Kuzushi Labs",
+    description:
+      "Real-time AI companion platform with immersive 3D avatar interactions and low-latency voice communication, optimized for seamless user/AI interaction.",
+    tags: ["React 19", "Tailwind CSS", "Three.js", "wawa-lipsync", "LiveKit", "Framer Motion", "Zustand", "TanStack Query"],
+    link: "#",
+    type: "work",
+  },
+  {
     title: "Kuzushi Labs",
     organization: "Kuzushi Labs",
     description:
       "Corporate website with an Industrial Luxury design system, custom animated backgrounds, scroll-triggered animations, and Google Sheets contact form.",
     tags: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Lenis", "Cloudinary"],
     link: "https://www.kuzushilabs.ai/",
+    type: "work",
+  },
+  {
+    title: "Cordia",
+    organization: "Kuzushi Labs",
+    description:
+      "Cardiology Risk Score application providing real-time patient data analysis with critical STS integration for automated risk score calculation.",
+    tags: ["React", "Tailwind CSS", "STS Integration"],
+    link: "https://cordia.kuzushilabs.xyz/login",
     type: "work",
   },
   {
@@ -118,31 +165,13 @@ const projects = [
     type: "work",
   },
   {
-    title: "Chitchat",
-    organization: "Kuzushi Labs",
+    title: "Document Privacy (DP-Fusion)",
+    organization: "Alpine Privacy",
     description:
-      "Real-time AI companion platform with immersive 3D avatar interactions and low-latency voice communication, optimized for seamless user/AI interaction.",
-    tags: ["React 19", "Tailwind CSS", "Three.js", "wawa-lipsync", "LiveKit", "Framer Motion", "Zustand", "TanStack Query"],
-    link: "#",
+      "Enterprise-grade document sanitization platform that automatically removes sensitive information from business documents while maintaining integrity.",
+    tags: ["React 18.3", "TypeScript", "Vite", "Redux Toolkit", "Tailwind CSS", "Node.js", "PyTorch", "Transformers", "FastAPI", "Docker"],
+    link: "https://www.documentprivacy.com/",
     type: "work",
-  },
-  {
-    title: "Cordia",
-    organization: "Kuzushi Labs",
-    description:
-      "Cardiology Risk Score application providing real-time patient data analysis with critical STS integration for automated risk score calculation.",
-    tags: ["React", "Tailwind CSS", "STS Integration"],
-    link: "https://cordia.kuzushilabs.xyz/login",
-    type: "work",
-  },
-  {
-    title: "Classical Cipher Identification",
-    organization: "IIIT-Delhi",
-    description:
-      "BTP under Dr. Ravi Anand. Training ML models to automatically identify classical cipher types from ciphertext using statistical and structural patterns.",
-    tags: ["Machine Learning", "Cryptography", "Python"],
-    link: "https://iiitd.ac.in/",
-    type: "academic",
   },
   {
     title: "AI For Architects",
@@ -151,15 +180,6 @@ const projects = [
       "AI-powered platform transforming architectural visualization through intelligent design generation and dynamic video creation.",
     tags: ["React 18", "TailwindCSS", "Node.js", "Express.js", "MongoDB", "OpenAI API", "Google Veo API", "FFmpeg", "JWT"],
     link: "https://ai-for-architects.com",
-    type: "work",
-  },
-  {
-    title: "Document Privacy (DP-Fusion)",
-    organization: "Alpine Privacy",
-    description:
-      "Enterprise-grade document sanitization platform that automatically removes sensitive information from business documents while maintaining integrity.",
-    tags: ["React 18.3", "TypeScript", "Vite", "Redux Toolkit", "Tailwind CSS", "Node.js", "PyTorch", "Transformers", "FastAPI", "Docker"],
-    link: "https://www.documentprivacy.com/",
     type: "work",
   },
   {
@@ -178,15 +198,6 @@ const projects = [
       "Android application combining document scanning with real-time landmark recognition using on-device machine learning.",
     tags: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "CameraX", "ML Kit"],
     link: "https://github.com/LordAizen1/Multi-Scan-App",
-    type: "self",
-  },
-  {
-    title: "Clowder — A Love Letter to Cats",
-    organization: "Hobby",
-    description:
-      "Cinematic scroll-driven experience. Photographic preloader, GSAP scroll animations, pinned panel stacking, horizontal filmstrip gallery, and masonry cat photo grid.",
-    tags: ["HTML/CSS/JS", "Tailwind CSS", "GSAP", "Lenis", "SplitType"],
-    link: "https://clowder-eosin.vercel.app/",
     type: "self",
   },
 ];
