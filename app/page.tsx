@@ -17,6 +17,16 @@ export const metadata: Metadata = {
 
 const featuredProjects = [
   {
+    title: "git-newspaper",
+    description:
+      "CLI that turns any git repo's history into a Victorian broadsheet newspaper. Hundreds of stars and trending on Reddit within 24 hours. Zero LLM dependency.",
+    tags: ["Node.js", "CLI", "npm"],
+    link: "https://github.com/LordAizen1/git-newspaper",
+    accent: "border-primary",
+    tagColor: "text-primary",
+    index: "001",
+  },
+  {
     title: "EverMemOS Plugin",
     description:
       "OpenCode plugin implementing durable structured memory — passive capture, automatic recall via system transform, and git-scoped episodic/profile/foresight memory across coding sessions.",
@@ -24,7 +34,7 @@ const featuredProjects = [
     link: "https://github.com/LordAizen1/opencode-evermemos-plugin",
     accent: "border-primary",
     tagColor: "text-primary",
-    index: "001",
+    index: "002",
   },
   {
     title: "ToolTree",
@@ -34,16 +44,6 @@ const featuredProjects = [
     link: "https://github.com/LordAizen1/ToolTree",
     accent: "border-secondary",
     tagColor: "text-secondary",
-    index: "002",
-  },
-  {
-    title: "GradeDash",
-    description:
-      "AI-powered academic dashboard for IIIT-Delhi students — GPT-4o transcript parsing, RAG chatbot, SGPA/CGPA visualizations, graduation tracker.",
-    tags: ["Next.js", "PostgreSQL", "OpenAI API"],
-    link: "https://grade-dash.vercel.app/",
-    accent: "border-primary",
-    tagColor: "text-primary",
     index: "003",
   },
 ];
@@ -130,7 +130,7 @@ export default function Home() {
         </h3>
         <div className="grid grid-cols-2 gap-px bg-white/5">
           {[
-            { label: "Projects", value: "13" },
+            { label: "Projects", value: "14" },
             { label: "Internships", value: "2" },
             { label: "Batch", value: "'26" },
             { label: "Status", value: "OPEN", valueClass: "text-primary" },
@@ -325,7 +325,7 @@ export default function Home() {
 
         <div className="col-span-12 md:col-span-4 bg-[#0e0e0e] flex flex-col justify-center items-center p-8 border border-secondary/20">
           <div className="text-center">
-            <div className="text-5xl font-sans font-bold text-white">13</div>
+            <div className="text-5xl font-sans font-bold text-white">14</div>
             <div className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mt-1">
               Projects Built
             </div>

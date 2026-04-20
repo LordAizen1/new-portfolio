@@ -69,11 +69,22 @@ const tagDescriptions: Record<string, string> = {
   "Auth.js": "Authentication library for modern web applications",
   "Agenda.js": "Lightweight job scheduling library for Node.js",
   "HTML/CSS/JS": "Core web technologies for building websites",
+  "CLI": "Command-line interface tool",
+  "npm": "Node.js package manager and public registry",
   GSAP: "Professional-grade animation library for the web",
   SplitType: "JavaScript library for splitting text into characters, words, and lines",
 };
 
 const projects = [
+  {
+    title: "git-newspaper",
+    organization: "Self",
+    description:
+      "CLI that generates a Victorian broadsheet newspaper from any git repository's history. Gained hundreds of stars and trending on Reddit within 24 hours of launch. Detects repo archetypes, renders typeset HTML with inlined fonts and SVG charts. Zero LLM dependency.",
+    tags: ["Node.js", "HTML/CSS/JS"],
+    link: "https://github.com/LordAizen1/git-newspaper",
+    type: "self",
+  },
   {
     title: "EverMemOS Plugin",
     organization: "Self",
