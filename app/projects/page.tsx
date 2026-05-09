@@ -73,6 +73,12 @@ const tagDescriptions: Record<string, string> = {
   "npm": "Node.js package manager and public registry",
   GSAP: "Professional-grade animation library for the web",
   SplitType: "JavaScript library for splitting text into characters, words, and lines",
+  LangGraph: "Graph-based framework for building stateful, multi-step LLM agents",
+  "GPT-4o-mini": "OpenAI's efficient small language model",
+  Tavily: "AI-powered web search API for real-time data retrieval",
+  SendGrid: "Cloud-based email delivery service",
+  Twilio: "Cloud communications platform for messaging and calls",
+  "GitHub Actions": "CI/CD and automation platform built into GitHub",
 };
 
 const projects = [
@@ -92,6 +98,15 @@ const projects = [
       "OpenCode plugin implementing durable structured memory across coding sessions. Passive capture, automatic recall via system transform, and git-scoped episodic/profile/foresight memory with vector-based retrieval and privacy sanitization.",
     tags: ["TypeScript", "Node.js", "Zod", "OpenCode Plugin"],
     link: "https://github.com/LordAizen1/opencode-evermemos-plugin",
+    type: "self",
+  },
+  {
+    title: "NewsForge",
+    organization: "Self",
+    description:
+      "Autonomous AI agent that wakes up daily, fetches and filters ~40 articles from real-time web searches, categorizes them across AI/tech topics, and delivers a curated digest via email or WhatsApp. Runs on GitHub Actions for under $0.20/month.",
+    tags: ["Python", "LangGraph", "GPT-4o-mini", "Tavily", "SendGrid", "Twilio", "GitHub Actions"],
+    link: "https://github.com/LordAizen1/newsforge",
     type: "self",
   },
   {
