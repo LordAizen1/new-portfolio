@@ -74,7 +74,7 @@ export default function Home() {
             Mohammad <span className="text-primary">Kaif</span>
           </h2>
           <p className="text-gray-500 text-sm leading-relaxed">
-            Final-year CS student at IIIT-Delhi. Interning at 2070 Health &amp; Kuzushi Labs — shipping AI-powered platforms, real-time 3D experiences, and open-source LLM systems.
+            Final-year CS student at IIIT-Delhi. Previously interned at 2070 Health &amp; Kuzushi Labs — shipped AI-powered platforms, real-time 3D experiences, and open-source LLM systems.
           </p>
         </div>
       </div>
@@ -131,7 +131,7 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-px bg-white/5">
           {[
             { label: "Projects", value: "14" },
-            { label: "Internships", value: "2" },
+            { label: "Internships", value: "2", valueClass: "text-gray-400" },
             { label: "Batch", value: "'26" },
             { label: "Status", value: "OPEN", valueClass: "text-primary" },
           ].map(({ label, value, valueClass }) => (
@@ -219,7 +219,7 @@ export default function Home() {
               <span className="syntax-key">&quot;biography&quot;</span>
               <span>: </span>
               <span className="syntax-val text-sm">
-                &quot;Final-year CS student at IIIT-Delhi. Interning at 2070 Health &amp; Kuzushi Labs — shipping AI-powered platforms, real-time 3D experiences, and open-source LLM agent systems.&quot;
+                &quot;Final-year CS student at IIIT-Delhi. Previously interned at 2070 Health &amp; Kuzushi Labs — shipped AI-powered platforms, real-time 3D experiences, and open-source LLM agent systems.&quot;
               </span>
               <span>,</span>
             </div>
@@ -331,9 +331,9 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-6 text-center">
-            <div className="text-2xl font-sans font-bold text-white">2</div>
+            <div className="text-2xl font-sans font-bold text-gray-400">2</div>
             <div className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mt-1">
-              Active Internships
+              Internships
             </div>
           </div>
         </div>

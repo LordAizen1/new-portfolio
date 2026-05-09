@@ -12,7 +12,7 @@ const experiences = [
   {
     title: "Software Engineer Intern, Part-Time",
     company: "2070 Health",
-    duration: "Dec 2025 – Present",
+    duration: "Jan 2026 – Mar 2026",
     description: (
       <>
         Building and maintaining a production Next.js/React/TypeScript healthcare platform serving
@@ -27,7 +27,7 @@ const experiences = [
   {
     title: "Full Stack AI Engineer Intern",
     company: "Kuzushi Labs",
-    duration: "Nov 2025 – Present",
+    duration: "Nov 2025 – Mar 2026",
     description:
       "Designing and developing cutting-edge web applications with seamless AI integration. Leveraging modern web technologies and AI models to create intelligent user experiences.",
     link: "https://www.kuzushilabs.xyz/",
