@@ -37,11 +37,11 @@ const featuredProjects = [
     index: "002",
   },
   {
-    title: "ToolTree",
+    title: "NewsForge",
     description:
-      "Open-source pip-installable Python library implementing MCTS-based LLM tool planning with dual-feedback pruning and multi-provider support.",
-    tags: ["Python", "MCTS", "Anthropic API"],
-    link: "https://github.com/LordAizen1/ToolTree",
+      "Autonomous AI agent that wakes up daily, fetches and filters ~40 articles, and delivers a curated tech/AI digest via email or WhatsApp. Runs on GitHub Actions for under $0.20/month.",
+    tags: ["Python", "LangGraph", "GPT-4o-mini"],
+    link: "https://github.com/LordAizen1/newsforge",
     accent: "border-secondary",
     tagColor: "text-secondary",
     index: "003",
