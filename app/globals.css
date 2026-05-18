@@ -189,6 +189,17 @@
             font-weight: 400;
         }
 
+        .breadcrumb-chevron {
+            color: var(--ts);
+            transition: transform 0.2s ease, color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .breadcrumb-chevron.open {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+
         .chevron-icon {
             color: var(--ts);
             transition: transform 0.2s ease;
@@ -1246,7 +1257,7 @@
         }
 
         /* ── Mobile Responsive Optimizations ── */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             main {
                 padding: 0 1.5rem;
             }
@@ -1275,8 +1286,101 @@
                 flex-wrap: wrap;
             }
 
+            /* Floating footer music player */
             .vertical-player-card {
-                max-width: 320px;
-                margin: 0 auto;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                max-width: none;
+                margin: 0;
+                border-radius: 16px 16px 0 0;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                background: rgba(13, 17, 23, 0.96);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                box-shadow: 0 -1px 0 var(--border), 0 -12px 40px rgba(0, 0, 0, 0.6);
+                flex-direction: row;
+                align-items: stretch;
+                padding-top: 3px;
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+                overflow: hidden;
+            }
+
+            .vp-art-container {
+                width: 60px;
+                min-width: 60px;
+                height: auto;
+                aspect-ratio: unset;
+                border-bottom: none;
+                border-right: 1px solid var(--border);
+                border-radius: 0;
+            }
+
+            .vp-body {
+                flex: 1;
+                flex-direction: row;
+                align-items: center;
+                padding: 0.65rem 1rem;
+                gap: 0.75rem;
+            }
+
+            .vp-info {
+                flex: 1;
+                text-align: left;
+                gap: 2px;
+                min-width: 0;
+            }
+
+            .vp-title {
+                font-size: 12px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .vp-artist {
+                font-size: 10px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .vp-controls {
+                gap: 0.5rem;
+                flex-shrink: 0;
+            }
+
+            .vp-btn {
+                width: 30px;
+                height: 30px;
+            }
+
+            .vp-btn.vp-play {
+                width: 36px;
+                height: 36px;
+            }
+
+            .vp-progress-bar-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 3px;
+                border-radius: 0;
+                margin-top: 0;
+            }
+
+            .vp-progress-bar-container:hover {
+                height: 3px;
+            }
+
+            /* pad page bottom so fixed player doesn't overlap content */
+            main {
+                padding-bottom: 80px;
             }
         }
