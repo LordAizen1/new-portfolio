@@ -1255,6 +1255,15 @@
                 padding: 1rem 1.5rem;
             }
 
+            .nav-desktop {
+                display: none;
+            }
+
+            .nav-mobile {
+                display: block;
+                width: 100%;
+            }
+
             .breadcrumb-dropdown {
                 left: 1.5rem;
                 width: calc(100vw - 3rem);
