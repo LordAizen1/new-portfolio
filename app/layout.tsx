@@ -1,27 +1,26 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/sidebar";
-import { TopBar } from "@/components/top-bar";
-import { StatusBar } from "@/components/status-bar";
-import { MobileNav } from "@/components/mobile-nav";
+import { Navbar } from "@/components/navbar";
 import { Analytics } from "@vercel/analytics/next";
 
-const spaceGrotesk = Space_Grotesk({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-serif",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500", "700"],
+  variable: "--font-mono",
+  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://new-portfolio-tan-seven.vercel.app"),
   title: {
-    default: "Mohammad Kaif — Developer Portfolio",
+    default: "Mohammad Kaif | Developer Portfolio",
     template: "%s | Mohammad Kaif",
   },
   description:
@@ -44,14 +43,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "Mohammad Kaif — Developer Portfolio",
-    title: "Mohammad Kaif — Developer Portfolio",
+    siteName: "Mohammad Kaif | Developer Portfolio",
+    title: "Mohammad Kaif | Developer Portfolio",
     description:
       "Final-year CS student at IIIT-Delhi. Passionate developer and problem solver building impactful software solutions.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohammad Kaif — Developer Portfolio",
+    title: "Mohammad Kaif | Developer Portfolio",
     description:
       "Final-year CS student at IIIT-Delhi. Passionate developer and problem solver building impactful software solutions.",
   },
@@ -65,38 +64,29 @@ const jsonLd = {
   jobTitle: "Software Engineer",
   description:
     "Final-year Computer Science student at IIIT-Delhi and passionate developer building impactful software solutions.",
-  sameAs: [],
+  sameAs: [
+    "https://github.com/LordAizen1",
+    "https://www.linkedin.com/in/mohammadkaif007/",
+  ],
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
-    >
-      <body className="font-sans">
+    <html lang="en" className={`${cormorant.variable} ${jetbrains.variable}`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Scanline overlay */}
-        <div className="scanline fixed inset-0 z-[100] opacity-10 pointer-events-none" />
-
-        {/* Desktop layout */}
-        <Sidebar />
-        <TopBar />
-        <StatusBar />
+        <Navbar />
         <Analytics />
-
-        {/* Mobile layout */}
-        <MobileNav />
-
-        {/* Main content — fixed scrollable on desktop, normal flow on mobile */}
-        <main className="pt-[104px] pb-[84px] md:pt-0 md:pb-0 md:fixed md:top-16 md:left-64 md:right-0 md:bottom-10 md:overflow-y-auto md:bg-[#000000]">
-          {children}
-        </main>
+        <main>{children}</main>
+        <footer style={{ borderTop: '1px solid var(--border)', padding: '2rem 3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: '11px', color: 'var(--tm)', letterSpacing: '.06em' }}>© 2026 Mohammad Kaif</span>
+          <span style={{ fontSize: '11px', color: 'var(--tm)', letterSpacing: '.06em' }}>built with <span style={{ color: 'var(--accent)' }}>♥</span> and a lot of commits</span>
+        </footer>
       </body>
     </html>
   );

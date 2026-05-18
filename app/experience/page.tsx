@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { ScrollText, ExternalLink } from "lucide-react";
 import { EverHopeLink } from "@/components/everhope-link";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -10,19 +10,20 @@ export const metadata: Metadata = {
 
 const experiences = [
   {
-    title: "Software Engineer Intern, Part-Time",
+    title: "Software Engineer Intern (Part-Time)",
     company: "2070 Health",
     duration: "Jan 2026 – Mar 2026",
     description: (
       <>
-        Building and maintaining a production Next.js/React/TypeScript healthcare platform serving
-        real patients. Leading SSR migrations, debugging Docker build pipelines, fixing SEO and meta
-        tag issues at scale, and improving site reliability through link audits. Currently working
-        on <EverHopeLink />.
+        Building and maintaining a production Next.js/React/TypeScript
+        healthcare platform serving real patients. Leading SSR migrations,
+        debugging Docker build pipelines, fixing SEO and meta tag issues at
+        scale, and improving site reliability through link audits. Currently
+        working on <EverHopeLink />.
       </>
     ),
     link: "https://2070health.com/",
-    accent: "border-primary",
+    type: "work",
   },
   {
     title: "Full Stack AI Engineer Intern",
@@ -31,26 +32,25 @@ const experiences = [
     description:
       "Designing and developing cutting-edge web applications with seamless AI integration. Leveraging modern web technologies and AI models to create intelligent user experiences.",
     link: "https://www.kuzushilabs.xyz/",
-    accent: "border-secondary",
+    type: "work",
   },
 ];
 
 const openSource = [
   {
-    title: "Open Source Contributor — IIITD-PYQs",
+    title: "Open Source Contributor | IIITD-PYQs",
     org: "IIITD-PYQs",
     duration: "May 2025",
     description:
-      "Contributed past year course materials for Design Research to a widely-used IIITD repository, enhancing resources for thousands of students. Submitted and merged PR #44 — my first merged open-source contribution.",
+      "Contributed past year course materials for Design Research to a widely-used IIITD repository, enhancing resources for thousands of students. Submitted and merged PR #44, my first open-source contribution.",
     link: "https://github.com/NalishJain/IIITD-PYQs/pull/44",
-    accent: "border-white/20 hover:border-white/50",
   },
 ];
 
 const education = [
   {
-    degree: "Bachelor of Technology — Computer Science",
-    university: "Indraprastha Institute of Information Technology, Delhi (IIIT-D)",
+    degree: "Bachelor of Technology, Computer Science",
+    university: "Indraprastha Institute of Information Technology, Delhi (IIIT-Delhi)",
     duration: "2022 – 2026",
   },
 ];
@@ -76,61 +76,39 @@ const achievements = [
   },
 ];
 
-function SectionLabel({ text }: { text: string }) {
-  return (
-    <p className="font-mono text-[10px] text-secondary uppercase tracking-widest mb-1">
-      {text}
-    </p>
-  );
-}
-
 export default function ExperiencePage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 md:px-12 py-6 md:py-12">
-      {/* File tab */}
-      <div className="hidden md:flex space-x-[2px] mb-8">
-        <div className="bg-[#0e0e0e] px-4 py-2 flex items-center space-x-2 border-t-2 border-primary">
-          <ScrollText size={12} className="text-primary" />
-          <span className="font-mono text-xs">experience.log</span>
-          <span className="text-[10px] text-gray-600 hover:text-white cursor-pointer ml-1">✕</span>
-        </div>
-      </div>
-
-      {/* Page header */}
-      {/* <div className="mb-10">
-        <div className="font-mono text-[10px] text-secondary mb-2">// EXPERIENCE_LOG</div>
-      </div> */}
-
+    <main style={{ paddingTop: '120px', paddingBottom: '100px' }}>
       {/* Work Experience */}
-      <section className="mb-14">
-        <SectionLabel text="// WORK_EXPERIENCE" />
-        <h2 className="font-sans text-xl font-bold mb-6 uppercase tracking-tight">Work Experience</h2>
-        <div className="flex flex-col gap-4">
+      <section style={{ marginBottom: '80px' }}>
+        <div className="sec-head">
+          <span className="sec-label">work experience</span>
+          <div className="sec-line"></div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', marginTop: '2.5rem' }}>
           {experiences.map((exp) => (
-            <div
-              key={exp.title}
-              className={`group relative bg-[#1a1919] p-6 border-l-2 ${exp.accent}/30 hover:${exp.accent} transition-all duration-300`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="flex justify-between items-start gap-4 mb-2">
-                  <h3 className="font-sans font-bold text-white uppercase tracking-tight text-sm">
+            <div key={exp.title} className="pcard" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                <div>
+                  <h3 className="pcard-name" style={{ margin: 0 }}>
                     {exp.title}
                   </h3>
-                  <a
-                    href={exp.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                    aria-label={`Visit ${exp.company}`}
+                  <a 
+                    href={exp.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ fontSize: '11px', color: 'var(--accent)', textDecoration: 'none', letterSpacing: '.06em', fontFamily: 'var(--font-mono)' }}
                   >
-                    <ExternalLink size={12} className="text-gray-500 hover:text-primary transition-colors" />
+                    {exp.company} ↗
                   </a>
                 </div>
-                <p className="font-mono text-[10px] text-gray-600 uppercase tracking-wider mb-3">
-                  {exp.company} &nbsp;|&nbsp; {exp.duration}
-                </p>
-                <p className="text-gray-400 text-sm leading-relaxed">{exp.description}</p>
+                <span style={{ fontSize: '11px', color: 'var(--tm)', fontFamily: 'var(--font-mono)' }}>
+                  {exp.duration}
+                </span>
+              </div>
+              <div style={{ fontSize: '12px', color: 'var(--ts)', lineHeight: '1.8' }}>
+                {exp.description}
               </div>
             </div>
           ))}
@@ -138,99 +116,91 @@ export default function ExperiencePage() {
       </section>
 
       {/* Open Source */}
-      <section className="mb-14">
-        <SectionLabel text="// OPEN_SOURCE" />
-        <h2 className="font-sans text-xl font-bold mb-6 uppercase tracking-tight">
-          Open Source Contributions
-        </h2>
-        <div className="flex flex-col gap-4">
+      <section style={{ marginBottom: '80px' }}>
+        <div className="sec-head">
+          <span className="sec-label">open source contributions</span>
+          <div className="sec-line"></div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', marginTop: '2.5rem' }}>
           {openSource.map((item) => (
-            <a
-              key={item.title}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative bg-[#1a1919] p-6 border-l-2 ${item.accent} transition-all duration-300`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="flex justify-between items-start gap-4 mb-2">
-                  <h3 className="font-sans font-bold text-white uppercase tracking-tight text-sm">
+            <div key={item.title} className="pcard" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                <div>
+                  <h3 className="pcard-name" style={{ margin: 0 }}>
                     {item.title}
                   </h3>
-                  <ExternalLink
-                    size={12}
-                    className="text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5"
-                  />
+                  <a 
+                    href={item.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ fontSize: '11px', color: 'var(--accent)', textDecoration: 'none', letterSpacing: '.06em', fontFamily: 'var(--font-mono)' }}
+                  >
+                    {item.org} ↗
+                  </a>
                 </div>
-                <p className="font-mono text-[10px] text-gray-600 uppercase tracking-wider mb-3">
-                  {item.org} &nbsp;|&nbsp; {item.duration}
-                </p>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                <span style={{ fontSize: '11px', color: 'var(--tm)', fontFamily: 'var(--font-mono)' }}>
+                  {item.duration}
+                </span>
               </div>
-            </a>
+              <div style={{ fontSize: '12px', color: 'var(--ts)', lineHeight: '1.8' }}>
+                {item.description}
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
       {/* Education */}
-      <section className="mb-14">
-        <SectionLabel text="// EDUCATION" />
-        <h2 className="font-sans text-xl font-bold mb-6 uppercase tracking-tight">Education</h2>
-        <div className="flex flex-col gap-4">
+      <section style={{ marginBottom: '80px' }}>
+        <div className="sec-head">
+          <span className="sec-label">education</span>
+          <div className="sec-line"></div>
+        </div>
+
+        <div style={{ marginTop: '2.5rem' }}>
           {education.map((edu) => (
-            <div
-              key={edu.degree}
-              className="bg-[#1a1919] p-6 border-l-2 border-secondary/30"
-            >
-              <h3 className="font-sans font-bold text-white uppercase tracking-tight text-sm mb-1">
-                {edu.degree}
-              </h3>
-              <p className="font-mono text-[10px] text-gray-600 uppercase tracking-wider">
-                {edu.university} &nbsp;|&nbsp; {edu.duration}
-              </p>
+            <div key={edu.degree} className="pcard" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                <div>
+                  <h3 className="pcard-name" style={{ margin: 0 }}>
+                    {edu.degree}
+                  </h3>
+                  <span style={{ fontSize: '11px', color: 'var(--ts)', letterSpacing: '.06em' }}>
+                    {edu.university}
+                  </span>
+                </div>
+                <span style={{ fontSize: '11px', color: 'var(--tm)', fontFamily: 'var(--font-mono)' }}>
+                  {edu.duration}
+                </span>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Achievements */}
-      <section className="mb-10">
-        <SectionLabel text="// ACHIEVEMENTS" />
-        <h2 className="font-sans text-xl font-bold mb-6 uppercase tracking-tight">Achievements</h2>
-        <div className="flex flex-col gap-4">
-          {achievements.map((ach) => (
-            <a
-              key={ach.title}
-              href={ach.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative bg-[#1a1919] p-6 border-l-2 border-primary/20 hover:border-primary/60 transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="flex justify-between items-start gap-4 mb-2">
-                  <h3 className="font-sans font-bold text-white uppercase tracking-tight text-sm">
-                    {ach.title}
-                  </h3>
-                  <ExternalLink
-                    size={12}
-                    className="text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5"
-                  />
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed">{ach.description}</p>
+      <section style={{ marginBottom: '40px' }}>
+        <div className="sec-head">
+          <span className="sec-label">achievements & certifications</span>
+          <div className="sec-line"></div>
+        </div>
+
+        <div className="projects-grid" style={{ marginTop: '2.5rem' }}>
+          {achievements.map((ach, idx) => (
+            <div key={ach.title} className="pcard">
+              <div className="pcard-top">
+                <div className="pcard-icon" style={{ background: '#1a1035' }}>🏆</div>
+                <a className="pcard-link" href={ach.link} target="_blank" rel="noopener noreferrer">
+                  credential ↗
+                </a>
               </div>
-            </a>
+              <div className="pcard-name" style={{ fontSize: '18px' }}>{ach.title}</div>
+              <div className="pcard-desc" style={{ fontSize: '11px', lineHeight: '1.7', marginTop: '10px' }}>{ach.description}</div>
+            </div>
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <div className="pt-6 border-t border-white/5">
-        <p className="font-mono text-[10px] text-gray-700 uppercase tracking-widest">
-          // EOF — experience.log
-        </p>
-      </div>
-    </div>
+    </main>
   );
 }
