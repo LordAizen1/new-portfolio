@@ -560,7 +560,7 @@
 
         .cell.future {
             pointer-events: none !important;
-            opacity: 0.15 !important;
+            opacity: 0 !important;
         }
 
 

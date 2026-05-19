@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 const GITHUB_GRAPHQL_API = "https://api.github.com/graphql";
 
 const query = `
-  query($username: String!, $since: GitTimestamp!) {
-    user(login: $username) {
+  query($since: GitTimestamp!) {
+    viewer {
       contributionsCollection {
         contributionCalendar {
           totalContributions
@@ -18,9 +18,10 @@ const query = `
           }
         }
       }
-      repositories(first: 35, ownerAffiliations: OWNER, orderBy: {field: PUSHED_AT, direction: DESC}) {
+      repositories(first: 50, ownerAffiliations: [OWNER, COLLABORATOR], orderBy: {field: PUSHED_AT, direction: DESC}) {
         nodes {
           name
+          isPrivate
           defaultBranchRef {
             target {
               ... on Commit {
@@ -82,10 +83,7 @@ export async function GET() {
       },
       body: JSON.stringify({
         query,
-        variables: { 
-          username,
-          since: sinceIso
-        },
+        variables: { since: sinceIso },
       }),
       next: { revalidate: 600 }, // Cache calendar for 10 minutes
     }).then(async (res) => {
@@ -108,7 +106,7 @@ export async function GET() {
     // Run fetches concurrently
     const [calendarJson, eventsJson] = await Promise.all([calendarPromise, eventsPromise]);
 
-    const calendar = calendarJson.data?.user?.contributionsCollection?.contributionCalendar;
+    const calendar = calendarJson.data?.viewer?.contributionsCollection?.contributionCalendar;
     if (!calendar) {
       return NextResponse.json(
         { error: "Failed to parse calendar data from GitHub response.", raw: calendarJson },
@@ -118,7 +116,7 @@ export async function GET() {
 
     // 3. Process Repository Commit History into Daily Commit Details Map
     const dailyCommitsMap: Record<string, any[]> = {};
-    const repositories = calendarJson.data?.user?.repositories?.nodes || [];
+    const repositories = calendarJson.data?.viewer?.repositories?.nodes || [];
     
     repositories.forEach((repo: any) => {
       const commits = repo.defaultBranchRef?.target?.history?.nodes || [];

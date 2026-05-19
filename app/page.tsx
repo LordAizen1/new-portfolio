@@ -301,10 +301,25 @@ export default function Home() {
             }
           }
 
+          // Derive real proj from top repo in this week's commits
+          const repoCount: Record<string, number> = {};
+          alignedDays.forEach((day: any) => {
+            day?.commitDetails?.forEach((c: any) => {
+              repoCount[c.repo] = (repoCount[c.repo] || 0) + 1;
+            });
+          });
+          const topRepos = Object.entries(repoCount).sort((a, b) => b[1] - a[1]);
+          const realProj = topRepos.length > 0 ? {
+            name: topRepos[0][0],
+            impact: topRepos.length > 1 ? `+${topRepos.length - 1} more repo${topRepos.length > 2 ? 's' : ''}` : 'active this week',
+            desc: topRepos.map(([r]) => r).join(' · '),
+            tech: [],
+          } : null;
+
           return {
             w: week.w,
             days: alignedDays,
-            proj: weekMap[week.w],
+            proj: realProj,
           };
         });
         
@@ -390,7 +405,7 @@ export default function Home() {
               <Link href="/experience" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <span className="stat-val" style={{ borderBottom: '1px dashed var(--accent)', cursor: 'pointer' }}>2</span>
               </Link>
-              <span className="stat-label">internships</span>
+              <span className="stat-label">paid contracts</span>
             </div>
             <div className="stat"><span className="stat-val">'26</span><span className="stat-label">CS @ IIIT-Delhi</span></div>
           </div>
@@ -602,7 +617,7 @@ export default function Home() {
               <div className="sgroup-name">projects & os</div>
               <ul className="slist">
                 <li className="sitem"><span className="sdot"></span>14+ Projects Built</li>
-                <li className="sitem"><span className="sdot"></span>2 Internships Completed</li>
+                <li className="sitem"><span className="sdot"></span>2 Paid Contracts Completed</li>
                 <li className="sitem"><span className="sdot"></span>npm Packages Published</li>
                 <li className="sitem"><span className="sdot"></span>Open Source Contributor</li>
               </ul>
