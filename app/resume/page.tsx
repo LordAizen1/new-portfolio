@@ -297,7 +297,7 @@ export default function ResumePage() {
         <div style={{ marginTop: '2rem' }}>
           <div className="pcard" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.25rem' }}>
             <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
-              <img src="/images/favicon_io/style1coloricon.png" alt="IIIT-Delhi" style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }} />
+              <img src="/images/style1coloricon.png" alt="IIIT-Delhi" style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }} />
             </div>
             <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
               <div>
