@@ -1187,6 +1187,7 @@
             color: var(--tp);
         }
 
+
         .vp-artist {
             font-size: 12px;
             color: var(--ts);
@@ -1289,7 +1290,7 @@
             /* Floating footer music player */
             .vertical-player-card {
                 position: fixed;
-                bottom: 0;
+                bottom: -60px;
                 left: 0;
                 right: 0;
                 z-index: 100;
@@ -1304,9 +1305,9 @@
                 -webkit-backdrop-filter: blur(24px);
                 box-shadow: 0 -1px 0 var(--border), 0 -12px 40px rgba(0, 0, 0, 0.6);
                 flex-direction: row;
-                align-items: stretch;
+                align-items: flex-start;
                 padding-top: 3px;
-                padding-bottom: env(safe-area-inset-bottom, 0px);
+                padding-bottom: 60px;
                 overflow: hidden;
             }
 
@@ -1322,6 +1323,7 @@
 
             .vp-body {
                 flex: 1;
+                min-width: 0;
                 flex-direction: row;
                 align-items: center;
                 padding: 0.65rem 1rem;
@@ -1330,17 +1332,19 @@
 
             .vp-info {
                 flex: 1;
+                min-width: 0;
+                overflow: hidden;
                 text-align: left;
                 gap: 2px;
-                min-width: 0;
             }
 
             .vp-title {
                 font-size: 12px;
                 white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                display: block;
+                width: 100%;
             }
+
 
             .vp-artist {
                 font-size: 10px;

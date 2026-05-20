@@ -17,6 +17,10 @@ const jetbrains = JetBrains_Mono({
   weight: ["300", "400", "500", "700"],
 });
 
+export const viewport = {
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://new-portfolio-tan-seven.vercel.app"),
   title: {
@@ -24,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Mohammad Kaif",
   },
   description:
-    "Mohammad Kaif is a final-year Computer Science student at IIIT-Delhi and a passionate developer and problem solver who builds impactful software solutions.",
+    "Mohammad Kaif is a full-stack engineer with production experience across healthcare and travel tech. Currently Founding Engineer at Tint, IIIT-Delhi CSE 2026 grad.",
   keywords: [
     "Mohammad Kaif",
     "developer",
@@ -34,6 +38,9 @@ export const metadata: Metadata = {
     "IIIT-Delhi",
     "Next.js",
     "React",
+    "FastAPI",
+    "AWS",
+    "TypeScript",
   ],
   authors: [{ name: "Mohammad Kaif" }],
   creator: "Mohammad Kaif",
@@ -46,13 +53,13 @@ export const metadata: Metadata = {
     siteName: "Mohammad Kaif | Developer Portfolio",
     title: "Mohammad Kaif | Developer Portfolio",
     description:
-      "Final-year CS student at IIIT-Delhi. Passionate developer and problem solver building impactful software solutions.",
+      "Full-stack engineer with production experience across healthcare and travel tech. Founding Engineer at Tint. IIIT-Delhi CSE 2026 grad.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Mohammad Kaif | Developer Portfolio",
     description:
-      "Final-year CS student at IIIT-Delhi. Passionate developer and problem solver building impactful software solutions.",
+      "Full-stack engineer with production experience across healthcare and travel tech. Founding Engineer at Tint. IIIT-Delhi CSE 2026 grad.",
   },
 };
 
@@ -61,9 +68,9 @@ const jsonLd = {
   "@type": "Person",
   name: "Mohammad Kaif",
   url: "https://new-portfolio-tan-seven.vercel.app",
-  jobTitle: "Software Engineer",
+  jobTitle: "Founding Engineer",
   description:
-    "Final-year Computer Science student at IIIT-Delhi and passionate developer building impactful software solutions.",
+    "Full-stack engineer with production experience across healthcare and travel tech. Currently Founding Engineer at Tint. IIIT-Delhi CSE 2026 grad.",
   sameAs: [
     "https://github.com/LordAizen1",
     "https://www.linkedin.com/in/mohammadkaif007/",

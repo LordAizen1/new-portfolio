@@ -50,7 +50,7 @@ export default function OgImage() {
               maxWidth: "800px",
             }}
           >
-            CS Student &bull; Developer &bull; Problem Solver
+            Full-Stack Engineer &bull; Fresh Graduate &bull; Ships Production Code
           </p>
           <p
             style={{

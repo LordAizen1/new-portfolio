@@ -18,7 +18,7 @@ const SECTIONS = [
 
 const PAGES = [
   { label: "projects", path: "/projects" },
-  { label: "experience", path: "/experience" }
+  { label: "resume", path: "/resume" },
 ];
 
 export function Navbar() {
@@ -71,8 +71,8 @@ export function Navbar() {
     if (pathname !== "/") {
       if (pathname.startsWith("/projects")) {
         setActiveSection("projects");
-      } else if (pathname.startsWith("/experience")) {
-        setActiveSection("experience");
+      } else if (pathname.startsWith("/resume")) {
+        setActiveSection("resume");
       }
       return;
     }
@@ -128,6 +128,8 @@ export function Navbar() {
           <li><Link href="/#skills">skills</Link></li>
           <li><Link href="/#about">analog</Link></li>
           <li><Link href="/#contact">contact</Link></li>
+          <li><Link href="/projects">projects</Link></li>
+          <li><Link href="/resume">resume</Link></li>
         </ul>
       </div>
 

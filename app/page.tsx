@@ -157,6 +157,40 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const titleRef = useRef<HTMLSpanElement>(null);
+  const [titleX, setTitleX] = useState(0);
+  const marqueeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const clearTimers = () => {
+      if (marqueeTimer.current) clearTimeout(marqueeTimer.current);
+    };
+
+    const run = () => {
+      const el = titleRef.current;
+      if (!el) return;
+      el.style.width = 'max-content';
+      const naturalWidth = el.offsetWidth;
+      el.style.width = '';
+      const constrainedWidth = el.offsetWidth;
+      const shift = Math.max(0, naturalWidth - constrainedWidth);
+      if (shift <= 0) { setTitleX(0); return; }
+
+      setTitleX(0);
+      marqueeTimer.current = setTimeout(() => {        // pause at start
+        setTitleX(-shift);
+        marqueeTimer.current = setTimeout(() => {      // hold at left
+          setTitleX(0);
+          marqueeTimer.current = setTimeout(run, 1200); // pause then repeat
+        }, 2500);
+      }, 1500);
+    };
+
+    clearTimers();
+    run();
+    window.addEventListener('resize', run);
+    return () => { clearTimers(); window.removeEventListener('resize', run); };
+  }, [currentSongIndex]);
 
   useEffect(() => {
     if (!audioRef.current) {
@@ -645,7 +679,7 @@ export default function Home() {
             <div className="analog-intro">
               <h3 className="analog-title">Building engines by day, living life by night.</h3>
               <p className="analog-text">
-                I am not just an AI developer who writes code all day. Beyond the terminal, I'm a deeply curious person who loves exploring different worlds—whether that's through immersive games, spending time with friends, or just petting every cat I see.
+                I am not just an AI developer who writes code all day. Beyond the terminal, I'm a deeply curious person who loves exploring different worlds - whether that's through immersive games, spending time with friends, or just petting every cat I see.
               </p>
               <div className="personal-quirks">
                 <div className="quirk">
@@ -684,7 +718,11 @@ export default function Home() {
               
               <div className="vp-body">
                 <div className="vp-info">
-                  <span className="vp-title">{SONGS[currentSongIndex].title}</span>
+                  <span
+                    ref={titleRef}
+                    className="vp-title"
+                    style={{ transform: `translateX(${titleX}px)`, transition: titleX !== 0 ? 'transform 1.5s ease-in-out' : 'transform 1.2s ease-in-out' }}
+                  >{SONGS[currentSongIndex].title}</span>
                   <span className="vp-artist">{SONGS[currentSongIndex].artist}</span>
                 </div>
                 
