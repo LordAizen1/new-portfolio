@@ -403,7 +403,7 @@ export default function Home() {
             <div className="stat"><span className="stat-val">14+</span><span className="stat-label">projects shipped</span></div>
             <div className="stat">
               <Link href="/experience" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <span className="stat-val" style={{ borderBottom: '1px dashed var(--accent)', cursor: 'pointer' }}>2</span>
+                <span className="stat-val" style={{ borderBottom: '1px dashed var(--accent)', cursor: 'pointer' }}>3</span>
               </Link>
               <span className="stat-label">paid contracts</span>
             </div>
@@ -617,7 +617,7 @@ export default function Home() {
               <div className="sgroup-name">projects & os</div>
               <ul className="slist">
                 <li className="sitem"><span className="sdot"></span>14+ Projects Built</li>
-                <li className="sitem"><span className="sdot"></span>2 Paid Contracts Completed</li>
+                <li className="sitem"><span className="sdot"></span>3 Paid Contracts Completed</li>
                 <li className="sitem"><span className="sdot"></span>npm Packages Published</li>
                 <li className="sitem"><span className="sdot"></span>Open Source Contributor</li>
               </ul>

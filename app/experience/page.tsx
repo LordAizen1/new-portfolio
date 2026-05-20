@@ -26,6 +26,15 @@ const experiences = [
     type: "work",
   },
   {
+    title: "Freelance Frontend & Shopify Developer",
+    company: "Adiamara",
+    duration: "Apr 2026",
+    description:
+      "Freelance engagement for a Dubai-based lab-grown diamond e-commerce brand. Diagnosed and replaced a broken Shopify marketplace currency converter with a free exchange-rate API, adding a polished country flag and currency icon dropdown. Built a standalone HTML bulk-pricing tool that generates Matrixify-compatible CSVs for mass-updating jewellery variant prices across the Shopify catalogue — reducing hours of manual per-variant edits to a single import.",
+    link: "https://adiamara.com",
+    type: "work",
+  },
+  {
     title: "Freelance Full Stack AI Engineer",
     company: "Kuzushi Labs",
     duration: "Nov 2025 – Mar 2026",

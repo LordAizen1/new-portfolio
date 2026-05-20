@@ -1,22 +1,23 @@
 "use client";
 
 import { 
-  Newspaper, 
-  Brain, 
-  Robot, 
-  GitBranch, 
-  Cat, 
-  LockKey, 
-  GraduationCap, 
-  Chats, 
-  Buildings, 
-  Heartbeat, 
-  Palette, 
-  Microphone, 
-  EyeSlash, 
-  HouseLine, 
-  TrendUp, 
-  DeviceMobile 
+  Newspaper,
+  Brain,
+  Robot,
+  GitBranch,
+  Cat,
+  LockKey,
+  GraduationCap,
+  Chats,
+  Buildings,
+  Heartbeat,
+  Palette,
+  Microphone,
+  EyeSlash,
+  HouseLine,
+  TrendUp,
+  DeviceMobile,
+  DiamondsFour,
 } from "@phosphor-icons/react";
 
 const iconMap: Record<string, React.ComponentType<any>> = {
@@ -36,6 +37,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   HouseLine,
   TrendUp,
   DeviceMobile,
+  DiamondsFour,
 };
 
 const projects = [
@@ -110,6 +112,16 @@ const projects = [
     link: "https://grade-dash.vercel.app/",
     type: "self",
     icon: "GraduationCap",
+  },
+  {
+    title: "Adiamara",
+    organization: "Freelance (Dubai)",
+    description:
+      "Lab-grown diamond e-commerce site for a Dubai client. Replaced a broken Shopify marketplace currency converter with a reliable free API, building a polished dropdown with country flag and currency icons. Also built an HTML-based bulk pricing tool that generates Matrixify-compatible CSVs for mass-updating jewellery variant prices — cutting hours of manual Shopify edits down to minutes.",
+    tags: ["Shopify", "JavaScript", "HTML/CSS", "Currency API", "Matrixify"],
+    link: "https://adiamara.com",
+    type: "work",
+    icon: "DiamondsFour",
   },
   {
     title: "Chitchat",
