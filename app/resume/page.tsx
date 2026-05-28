@@ -32,11 +32,11 @@ const experience = [
     company: "Tint",
     role: "Founding Engineer · Travel Tech Startup",
     duration: "Apr 2026 – Present",
-    link: null,
+    link: "https://tintindia.com",
     bullets: [
-      "Backend & Cloud Infra: Async FastAPI REST API on AWS App Runner with PostgreSQL (RDS) for storage and Redis (ElastiCache) for sessions and rate limiting.",
-      "System Design & Performance: Two-step OpenAI itinerary pipeline with HTTP 202 async polling to decouple LLM calls from the client, keeping the UI responsive despite API latency.",
-      "Frontend & Security: Mobile-optimized Next.js 16 UI (430px) with Zustand, custom Tailwind v4 design system, Twilio OTP auth, and AWS Amplify deployment.",
+      "System Design & Backend: Owned end-to-end architecture of a live travel platform — async FastAPI on Railway with Neon Postgres, Upstash Redis for sliding-window rate limiting and session caching, and AWS S3 with presigned URLs for private media; designed a three-stage AI pipeline (Tavily → OpenAI → Pexels) with HTTP 202 async polling achieving ~70% reduction in perceived wait time; benchmarked GPT models and migrated to gpt-5.4-mini for an 86% cost reduction and 20% latency improvement.",
+      "Auth & Partner CRM: Architected a three-principal JWT system (consumer/admin/partner) with independent HMAC secrets — Twilio phone OTP for consumers, bcrypt + TOTP 2FA for admins, invite-only partner onboarding with field-level encryption on sensitive KYC data; built a supply-side CRM for hosts, guides, and agencies with a status-gated workflow, S3 document management, and a self-service partner portal on a dedicated subdomain.",
+      "Admin Platform & Analytics: Built and shipped a full internal admin platform (Next.js 16, AWS Amplify) with three-tier RBAC (super/ops/support admin), trip and booking management, direct-to-S3 image uploads, and role-gated user lifecycle controls; implemented live analytics using SQLAlchemy date_trunc time-series aggregation surfaced as sparkline charts, resolved a subtle ORM bind-parameter collision in GROUP BY expressions, and shipped with zero-downtime deploys via GitHub Actions CI/CD.",
     ],
   },
   {
