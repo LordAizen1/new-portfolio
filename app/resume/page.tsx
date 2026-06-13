@@ -34,9 +34,10 @@ const experience = [
     duration: "Apr 2026 – Present",
     link: "https://tintindia.com",
     bullets: [
-      "System Design & Backend: Owned end-to-end architecture of a live travel platform — async FastAPI on Railway with Neon Postgres, Upstash Redis for sliding-window rate limiting and session caching, and AWS S3 with presigned URLs for private media; designed a three-stage AI pipeline (Tavily → OpenAI → Pexels) with HTTP 202 async polling achieving ~70% reduction in perceived wait time; benchmarked GPT models and migrated to gpt-5.4-mini for an 86% cost reduction and 20% latency improvement.",
-      "Auth & Partner CRM: Architected a three-principal JWT system (consumer/admin/partner) with independent HMAC secrets — Twilio phone OTP for consumers, bcrypt + TOTP 2FA for admins, invite-only partner onboarding with field-level encryption on sensitive KYC data; built a supply-side CRM for hosts, guides, and agencies with a status-gated workflow, S3 document management, and a self-service partner portal on a dedicated subdomain.",
-      "Admin Platform & Analytics: Built and shipped a full internal admin platform (Next.js 16, AWS Amplify) with three-tier RBAC (super/ops/support admin), trip and booking management, direct-to-S3 image uploads, and role-gated user lifecycle controls; implemented live analytics using SQLAlchemy date_trunc time-series aggregation surfaced as sparkline charts, resolved a subtle ORM bind-parameter collision in GROUP BY expressions, and shipped with zero-downtime deploys via GitHub Actions CI/CD.",
+      "System Design & Backend: Architected a live AI travel platform on a single async FastAPI backend serving web, mobile, and admin, with Redis rate limiting and session caching. Built a three-stage itinerary pipeline behind an async-polling API, and migrated it from OpenAI to Gemini to cut latency and cost.",
+      "Auth & Partner CRM: Built a three-principal JWT auth system (consumer/admin/partner) with phone OTP, TOTP 2FA, and encrypted KYC, plus a supply-side CRM and self-service portal for hosts, guides, and agencies.",
+      "Admin Platform & Analytics: Shipped a full internal admin platform with three-tier RBAC, trip/booking management, and live time-series analytics as sparklines; zero-downtime deploys via CI/CD.",
+      "Consumer Mobile App (in progress): Building the flagship Expo / React Native app, a discovery feed with bookable listings and in-app Razorpay checkout, extending the platform into a two-sided marketplace.",
     ],
   },
   {
@@ -105,9 +106,11 @@ const projects = [
 
 const skills = [
   { label: "Languages", items: "C++, Python, JavaScript, TypeScript, HTML/CSS, SQL" },
-  { label: "Frameworks", items: "React.js, Next.js, FastAPI, Node.js, TailwindCSS, Framer Motion, GSAP, Three.js" },
-  { label: "AWS & DevOps", items: "App Runner, RDS, ElastiCache, Amplify, Docker, Nginx, GCP, PM2, Git/GitHub" },
-  { label: "Databases", items: "PostgreSQL, MongoDB, Redis, Firebase" },
+  { label: "Frameworks", items: "React.js, Next.js, React Native, Expo, FastAPI, Node.js, SQLAlchemy, TailwindCSS, Framer Motion, GSAP, Three.js" },
+  { label: "AI / ML", items: "Gemini API, OpenAI API, LangGraph, LangChain, PyTorch, XGBoost" },
+  { label: "AWS & DevOps", items: "S3, App Runner, RDS, ElastiCache, Amplify, Railway, Docker, Nginx, GitHub Actions, GCP, PM2, Git/GitHub" },
+  { label: "Databases", items: "PostgreSQL (Neon), MongoDB, Redis (Upstash), Firebase" },
+  { label: "Integrations", items: "JWT/Auth, Razorpay, Twilio, Salesforce, Cloudinary, SendGrid, Tavily" },
 ];
 
 const openSource = [
@@ -161,7 +164,7 @@ export default function ResumePage() {
           </div>
         </div>
         <a
-          href="/Md_Kaif_Resume.pdf"
+          href="/images/Md_Kaif_Resume.pdf"
           download
           style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
@@ -182,7 +185,7 @@ export default function ResumePage() {
       <section style={{ marginBottom: '3rem' }}>
         <div className="sec-head"><span className="sec-label">summary</span><div className="sec-line"></div></div>
         <p style={{ marginTop: '1.5rem', fontSize: '13px', color: 'var(--ts)', lineHeight: 1.9 }}>
-          Full-stack engineer with production experience across healthcare and travel tech. Currently Founding Engineer at Tint, building a FastAPI + Next.js platform on AWS with an OpenAI-powered itinerary generation pipeline. IIIT Delhi CSE 2026 grad with a side interest in quantum computing (IBM Qiskit Global Summer School 2024) who likes shipping things that work.
+          Full-stack engineer with production experience across healthcare and travel tech. Currently Founding Engineer at Tint, building a FastAPI + Next.js platform on AWS with a Gemini-powered itinerary generation pipeline and a cross-platform Expo / React Native app. IIIT Delhi CSE 2026 grad with a side interest in quantum computing (IBM Qiskit Global Summer School 2024) who likes shipping things that work.
         </p>
       </section>
 
