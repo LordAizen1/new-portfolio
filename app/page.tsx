@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { Newspaper, Brain, Robot } from "@phosphor-icons/react";
+import { Newspaper, Brain, FileMagnifyingGlass } from "@phosphor-icons/react";
 
 // --- Data ---
 const PROJECTS = [
@@ -22,10 +22,10 @@ const PROJECTS = [
     weeks: [8, 9, 10, 11, 12, 13, 14, 15], hi: 3
   },
   {
-    name: 'NewsForge',
-    impact: 'runs on GitHub Actions for under $0.20/month',
-    desc: 'Autonomous AI agent that wakes up daily, fetches ~40 articles, and delivers a curated tech/AI digest via email or WhatsApp.',
-    tech: ['Python', 'LangGraph', 'GPT-4o-mini'],
+    name: 'LlamaIndex RAG App',
+    impact: '100% retrieval, 92-96% answer accuracy',
+    desc: 'Document Q&A over uploaded PDF/DOCX/Markdown with expandable source citations, streaming responses, and a hallucination guard that admits when the answer isn\'t in the docs.',
+    tech: ['FastAPI', 'LlamaIndex', 'ChromaDB'],
     weeks: [16, 17, 18, 19, 20, 21, 22], hi: 4
   },
   {
@@ -437,7 +437,7 @@ export default function Home() {
             <div className="stat"><span className="stat-val">14+</span><span className="stat-label">projects shipped</span></div>
             <div className="stat">
               <Link href="/experience" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <span className="stat-val" style={{ borderBottom: '1px dashed var(--accent)', cursor: 'pointer' }}>3</span>
+                <span className="stat-val" style={{ borderBottom: '1px dashed var(--accent)', cursor: 'pointer' }}>4</span>
               </Link>
               <span className="stat-label">paid contracts</span>
             </div>
@@ -597,19 +597,19 @@ export default function Home() {
             <div className="pcard">
               <div className="pcard-top">
                 <div className="pcard-icon" style={{background: '#1a0b0b'}}>
-                  <Robot size={20} weight="duotone" color="#f87171" />
+                  <FileMagnifyingGlass size={20} weight="duotone" color="#f87171" />
                 </div>
                 <div className="pcard-actions">
-                  <a className="pcard-link" href="https://github.com/LordAizen1/newsforge" target="_blank" rel="noopener noreferrer">github →</a>
+                  <a className="pcard-link" href="https://github.com/LordAizen1/llamaindex-rag-app" target="_blank" rel="noopener noreferrer">github →</a>
                 </div>
               </div>
-              <div className="pcard-name">NewsForge</div>
-              <div className="pcard-desc">Autonomous AI agent that wakes up daily, fetches ~40 articles, and delivers a curated tech/AI digest via email or WhatsApp. Runs on GitHub Actions for under $0.20/month.</div>
+              <div className="pcard-name">LlamaIndex RAG App</div>
+              <div className="pcard-desc">Document Q&A over uploaded PDF/DOCX/Markdown with expandable source citations and a hallucination guard. Hits 100% retrieval and 92-96% answer accuracy across chunking configs.</div>
               <div className="pcard-meta">
                 <div className="pcard-stack">
-                  <span className="pstack-tag">Python</span><span className="pstack-tag">·</span>
-                  <span className="pstack-tag">LangGraph</span><span className="pstack-tag">·</span>
-                  <span className="pstack-tag">GPT-4o</span>
+                  <span className="pstack-tag">FastAPI</span><span className="pstack-tag">·</span>
+                  <span className="pstack-tag">LlamaIndex</span><span className="pstack-tag">·</span>
+                  <span className="pstack-tag">ChromaDB</span>
                 </div>
               </div>
             </div>
@@ -651,7 +651,7 @@ export default function Home() {
               <div className="sgroup-name">projects & os</div>
               <ul className="slist">
                 <li className="sitem"><span className="sdot"></span>14+ Projects Built</li>
-                <li className="sitem"><span className="sdot"></span>3 Paid Contracts Completed</li>
+                <li className="sitem"><span className="sdot"></span>4 Paid Contracts Completed</li>
                 <li className="sitem"><span className="sdot"></span>npm Packages Published</li>
                 <li className="sitem"><span className="sdot"></span>Open Source Contributor</li>
               </ul>

@@ -30,7 +30,7 @@ const BRAND_BG: Record<string, string> = { Google: '#0d1117', IBM: '#0d1117' };
 const experience = [
   {
     company: "Tint",
-    role: "Founding Engineer · Travel Tech Startup",
+    role: "Software Engineer",
     duration: "Apr 2026 – Present",
     link: "https://tintindia.com",
     bullets: [
@@ -42,7 +42,7 @@ const experience = [
   },
   {
     company: "2070 Health",
-    role: "Software Engineer (Contract) · Healthcare Platform",
+    role: "Full Stack Developer (Contract)",
     duration: "Jan 2026 – Apr 2026",
     link: "https://2070health.com/",
     bullets: [
@@ -51,22 +51,24 @@ const experience = [
     ],
   },
   {
+    company: "Digitow Design Studio",
+    role: "Full Stack Developer",
+    duration: "Jan 2025 – Dec 2025",
+    link: "https://www.digitow.design/",
+    bullets: [
+      "Built Fanclash end-to-end as a full-stack developer, implementing both the React/Next.js frontend and Node.js backend services with REST API integration.",
+      "Developed the Kicksal frontend in React/Next.js, building responsive, reusable UI components and integrating them with backend APIs.",
+      "Worked directly with designers and stakeholders across client projects, translating requirements into production-ready applications delivered on schedule.",
+    ],
+  },
+  {
     company: "Kuzushi Labs",
-    role: "Freelance Software Engineer · AI Startup",
-    duration: "Nov 2025 – Mar 2026",
+    role: "Freelance Software Engineer",
+    duration: "Jun 2024 – Dec 2024",
     link: "https://www.kuzushilabs.ai/",
     bullets: [
       "Built Anowmly from scratch: custom hero animation (rectangle-to-cube), WebPlayer, film-strip carousel, and contact form. Migrated video assets to Cloudinary. Stack: Next.js, TypeScript, Framer Motion, Tailwind CSS.",
       "Shipped Kuzushi Labs' site with GSAP, Three.js 3D, Framer Motion, and Lenis on Next.js 16 / React 19. Rebuilt the Healthtech-Redefined design system with shadcn/ui and Tailwind CSS.",
-    ],
-  },
-  {
-    company: "Adiamara",
-    role: "Freelance Frontend Engineer · E-commerce",
-    duration: "Apr 2026",
-    link: "https://adiamara.com",
-    bullets: [
-      "Delivered UI fixes and improvements for a luxury lab-grown diamond e-commerce brand based in Dubai. Replaced a broken Shopify currency converter with a free exchange-rate API with flag/currency dropdowns. Built a bulk pricing CSV tool for Matrixify to mass-update jewellery variant prices.",
     ],
   },
 ];

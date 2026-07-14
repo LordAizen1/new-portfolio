@@ -18,6 +18,7 @@ import {
   TrendUp,
   DeviceMobile,
   DiamondsFour,
+  FileMagnifyingGlass,
 } from "@phosphor-icons/react";
 
 const iconMap: Record<string, React.ComponentType<any>> = {
@@ -38,6 +39,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   TrendUp,
   DeviceMobile,
   DiamondsFour,
+  FileMagnifyingGlass,
 };
 
 const projects = [
@@ -62,6 +64,17 @@ const projects = [
     type: "self",
     feat: true,
     icon: "Brain",
+  },
+  {
+    title: "LlamaIndex RAG App",
+    organization: "Self",
+    description:
+      "Document Q&A system that answers questions from uploaded PDF, DOCX, or Markdown files with expandable source citations, and refuses to hallucinate when the answer isn't in the docs. Configurable chunking, streaming SSE responses, per-IP rate limiting with daily LLM spend caps, and an eval harness hitting 100% retrieval and 92-96% answer accuracy across chunking configs.",
+    tags: ["FastAPI", "LlamaIndex", "ChromaDB", "OpenAI API", "Next.js", "TypeScript", "Redis (Upstash)", "Docker", "Railway"],
+    link: "https://github.com/LordAizen1/llamaindex-rag-app",
+    type: "self",
+    feat: true,
+    icon: "FileMagnifyingGlass",
   },
   {
     title: "NewsForge",
