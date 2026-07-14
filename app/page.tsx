@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { Newspaper, Brain, FileMagnifyingGlass } from "@phosphor-icons/react";
@@ -89,6 +89,15 @@ const FALLBACK = {
     tech: ['Various'],
 };
 
+// Badge label + color per GitHub activity type shown in the day tooltip.
+const ACTIVITY_META: Record<string, { label: string; color: string }> = {
+  commit: { label: 'commit', color: '#3dd68c' },
+  pull_request: { label: 'PR', color: '#58a6ff' },
+  pull_request_merged: { label: 'merged', color: '#a371f7' },
+  issue: { label: 'issue', color: '#f0883e' },
+  review: { label: 'review', color: '#39c5cf' },
+};
+
 const weekMap: Record<number, any> = {};
 PROJECTS.forEach(p => p.weeks.forEach(w => weekMap[w] = p));
 
@@ -145,12 +154,122 @@ function genData() {
     return data;
 }
 
+// Shared inner content for both the hover tooltip and the pinned card.
+function PanelBody({ panel, dayIndex }: { panel: any; dayIndex: number | null }) {
+  const day = panel && dayIndex !== null ? panel.days[dayIndex] : null;
+  return (
+    <>
+      <div className="panel-week">
+        {day
+          ? day.date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })
+          : panel?.dateStr || '-'}
+      </div>
+
+      {day && day.commitDetails && day.commitDetails.length > 0 ? (
+        <>
+          <div className="panel-name" style={{ fontSize: '20px', color: 'var(--accent)' }}>
+            {day.commitDetails.length} {day.commitDetails.length === 1 ? 'Activity' : 'Activities'}
+          </div>
+          <div className="panel-desc" style={{ marginTop: '5px', fontSize: '11px', color: 'var(--ts)' }}>
+            Real-time activity log for today:
+          </div>
+          <div className="commit-list">
+            {day.commitDetails.map((c: any, cIdx: number) => {
+              const timeStr = new Date(c.time).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+              });
+              const meta = ACTIVITY_META[c.type] || ACTIVITY_META.commit;
+              return (
+                <div key={cIdx} className="commit-item">
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <span className="commit-time">{timeStr}</span>
+                    <span
+                      style={{
+                        fontSize: '9px', fontFamily: 'var(--font-mono)', letterSpacing: '.04em',
+                        textTransform: 'uppercase', padding: '1px 5px', borderRadius: '4px',
+                        color: meta.color, border: `1px solid ${meta.color}55`,
+                        background: `${meta.color}14`, flexShrink: 0,
+                      }}
+                    >
+                      {meta.label}
+                    </span>
+                    <span className="commit-repo">[{c.repo}]</span>
+                  </div>
+                  <span className="commit-msg">{c.message}</span>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="panel-name">
+            {day
+              ? `${day.commits} ${day.commits === 1 ? 'Contribution' : 'Contributions'}`
+              : panel?.name || '-'}
+          </div>
+          <div className="panel-impact">
+            {day
+              ? (day.commits > 0 ? "pushing direct to production" : "planning and deep research")
+              : panel?.impact || '-'}
+          </div>
+          <div className="panel-desc">
+            {day
+              ? (day.commits > 0
+                  ? `Logged ${day.commits} contributions on GitHub on this day. Detailed commit logs are stored in private repositories or secondary archives.`
+                  : `No active code pushed on this day. Time spent on architecture, planning, and system research.`)
+              : panel?.desc || '-'}
+          </div>
+          {!day && panel?.tech && (
+            <div className="panel-tags">
+              {panel.tech.map((t: string) => (
+                <span key={t} className="ptag">{t}</span>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      <div className="panel-bottom" style={{ marginTop: 'auto', paddingTop: '15px' }}>
+        <div>
+          <div className="panel-commits-label">
+            {dayIndex !== null ? 'day activity' : 'contributions this week'}
+          </div>
+          <div className="mini-bars">
+            {panel?.days?.map((d: any, i: number) => (
+              <div
+                key={i}
+                className={`mbar ${i === dayIndex ? 'peak' : ''}`}
+                style={{
+                  height: `${Math.max(3, Math.round((d.commits / panel.maxC) * 28))}px`,
+                  background: i === dayIndex ? 'var(--accent)' : undefined
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div className="panel-count">
+            {dayIndex !== null ? panel.days[dayIndex].commits : (panel?.total || '-')}
+          </div>
+          <div className="panel-count-sub">
+            {dayIndex !== null ? 'on this day' : 'this week'}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function Home() {
   const [graphData, setGraphData] = useState<any[]>([]);
   const [activePanel, setActivePanel] = useState<any | null>(null);
   const [activeDayIndex, setActiveDayIndex] = useState<number | null>(null);
-  const [panelSide, setPanelSide] = useState<'left' | 'right'>('right');
+  const [cellRect, setCellRect] = useState<DOMRect | null>(null);
+  const [pinned, setPinned] = useState<{ panel: any; dayIndex: number; rect: DOMRect } | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const pinnedRef = useRef<HTMLDivElement>(null);
 
   // Audio Player State & Logic
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -388,13 +507,13 @@ export default function Home() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const openPanel = (w: number, days: any[], proj: any) => {
+  // Build the panel data object for a week column.
+  const buildPanel = (w: number, days: any[], proj: any) => {
     const p = proj || FALLBACK;
     const fd = days.find((d: any) => d.date) || days[0];
     const total = days.reduce((s: number, d: any) => s + d.commits, 0);
     const maxC = Math.max(...days.map((d: any) => d.commits), 1);
-    
-    setActivePanel({
+    return {
       week: w,
       dateStr: `Week of ${fd.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`,
       name: p.name,
@@ -403,24 +522,68 @@ export default function Home() {
       tech: p.tech,
       total,
       days,
-      maxC
-    });
+      maxC,
+    };
+  };
+
+  const openPanel = (w: number, days: any[], proj: any) => {
+    setActivePanel(buildPanel(w, days, proj));
     setActiveDayIndex(null); // Reset day focus on new week hover
-    
-    // Slide panel in from left if cursor is on the right half, preventing cursor overlap & flickering!
-    if (w > 26) {
-      setPanelSide('left');
-    } else {
-      setPanelSide('right');
-    }
   };
 
   const closePanel = () => {
     setActivePanel(null);
     setActiveDayIndex(null);
+    setCellRect(null);
   };
 
-  const activeDay = activePanel && activeDayIndex !== null ? activePanel.days[activeDayIndex] : null;
+  // Position a card next to its anchor cell, flipping/clamping to stay on-screen.
+  const positionCard = (el: HTMLDivElement | null, rect: DOMRect | null) => {
+    if (!el || !rect) return;
+    if (typeof window !== "undefined" && window.innerWidth < 900) return; // mobile: cards hidden
+    const pad = 12;
+    const gap = 12;
+    const pw = el.offsetWidth;
+    const ph = el.offsetHeight;
+
+    let left = rect.right + gap;
+    if (left + pw > window.innerWidth - pad) left = rect.left - gap - pw;
+    left = Math.max(pad, Math.min(left, window.innerWidth - pw - pad));
+
+    let top = rect.top + rect.height / 2 - ph / 2;
+    top = Math.max(pad, Math.min(top, window.innerHeight - ph - pad));
+
+    el.style.left = `${left}px`;
+    el.style.top = `${top}px`;
+  };
+
+  // Hover tooltip follows the hovered cell.
+  useLayoutEffect(() => {
+    if (activePanel) positionCard(panelRef.current, cellRect);
+  }, [cellRect, activePanel, activeDayIndex]);
+
+  // Pinned card is positioned once against the clicked cell's rect.
+  useLayoutEffect(() => {
+    if (pinned) positionCard(pinnedRef.current, pinned.rect);
+  }, [pinned]);
+
+  // Dismiss the pinned card on Escape or on a click/tap outside it.
+  useEffect(() => {
+    if (!pinned) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setPinned(null); };
+    const onDown = (e: MouseEvent) => {
+      const el = e.target as HTMLElement;
+      if (pinnedRef.current?.contains(el)) return; // clicking inside the card
+      if (el?.closest?.(".cell")) return;           // clicking another cell re-pins
+      setPinned(null);
+    };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onDown);
+    };
+  }, [pinned]);
 
   return (
     <>
@@ -453,7 +616,7 @@ export default function Home() {
           </div>
           <p className="graph-hint">
             <span className="hint-dot"></span>
-            hover any cell to see exactly what shipped each day
+            hover any cell to preview — click to pin a card you can scroll
           </p>
           <div className="graph-scroll" onMouseLeave={closePanel}>
             <div className="graph-container">
@@ -510,15 +673,26 @@ export default function Home() {
                         {days.map((d: any, i: number) => {
                           const isFuture = d.date > new Date();
                           return (
-                            <div 
-                              key={i} 
-                              className={`cell ${activePanel?.week === w && activeDayIndex === i ? 'lit-day' : ''} ${isFuture ? 'future' : ''}`} 
+                            <div
+                              key={i}
+                              className={`cell ${((activePanel?.week === w && activeDayIndex === i) || (pinned?.panel.week === w && pinned?.dayIndex === i)) ? 'lit-day' : ''} ${isFuture ? 'future' : ''}`}
                               data-l={d.level}
+                              style={isFuture ? undefined : { cursor: 'pointer' }}
                               title={isFuture ? undefined : `${d.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}: ${d.commits} commit${d.commits !== 1 ? 's' : ''}`}
                               onMouseEnter={(e) => {
                                 if (isFuture) return;
                                 e.stopPropagation();
                                 setActiveDayIndex(i);
+                                setCellRect(e.currentTarget.getBoundingClientRect());
+                              }}
+                              onClick={(e) => {
+                                if (isFuture) return;
+                                e.stopPropagation();
+                                setPinned({
+                                  panel: buildPanel(w, days, proj),
+                                  dayIndex: i,
+                                  rect: e.currentTarget.getBoundingClientRect(),
+                                });
                               }}
                             />
                           );
@@ -797,100 +971,22 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Floating info panel */}
-      <div 
-        ref={panelRef} 
-        className={`panel ${activePanel ? 'open' : ''} ${panelSide}`} 
+      {/* Hover tooltip (non-interactive preview) */}
+      <div
+        ref={panelRef}
+        className={`panel ${activePanel ? 'open' : ''}`}
         id="panel"
       >
-        <div className="panel-week">
-          {activeDay 
-            ? activeDay.date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' }) 
-            : activePanel?.dateStr || '-'}
-        </div>
-        
-        {activeDay && activeDay.commitDetails && activeDay.commitDetails.length > 0 ? (
-          <>
-            <div className="panel-name" style={{ fontSize: '20px', color: 'var(--accent)' }}>
-              {activeDay.commits} {activeDay.commits === 1 ? 'Commit' : 'Commits'} Shipped
-            </div>
-            <div className="panel-desc" style={{ marginTop: '5px', fontSize: '11px', color: 'var(--ts)' }}>
-              Real-time activity log for today:
-            </div>
-            <div className="commit-list">
-              {activeDay.commitDetails.map((c: any, cIdx: number) => {
-                const timeStr = new Date(c.time).toLocaleTimeString('en-US', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                });
-                return (
-                  <div key={cIdx} className="commit-item">
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-                      <span className="commit-time">{timeStr}</span>
-                      <span className="commit-repo">[{c.repo}]</span>
-                    </div>
-                    <span className="commit-msg">{c.message}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="panel-name">
-              {activeDay 
-                ? `${activeDay.commits} ${activeDay.commits === 1 ? 'Commit' : 'Commits'}`
-                : activePanel?.name || '-'}
-            </div>
-            <div className="panel-impact">
-              {activeDay 
-                ? (activeDay.commits > 0 ? "pushing direct to production" : "planning and deep research")
-                : activePanel?.impact || '-'}
-            </div>
-            <div className="panel-desc">
-              {activeDay 
-                ? (activeDay.commits > 0 
-                    ? `Logged ${activeDay.commits} contributions on GitHub on this day. Detailed commit logs are stored in private repositories or secondary archives.` 
-                    : `No active code pushed on this day. Time spent on architecture, planning, and system research.`)
-                : activePanel?.desc || '-'}
-            </div>
-            {!activeDay && activePanel?.tech && (
-              <div className="panel-tags">
-                {activePanel.tech.map((t: string) => (
-                  <span key={t} className="ptag">{t}</span>
-                ))}
-              </div>
-            )}
-          </>
-        )}
+        <PanelBody panel={activePanel} dayIndex={activeDayIndex} />
+      </div>
 
-        <div className="panel-bottom" style={{ marginTop: 'auto', paddingTop: '15px' }}>
-          <div>
-            <div className="panel-commits-label">
-              {activeDayIndex !== null ? 'hovering day activity' : 'commits this week'}
-            </div>
-            <div className="mini-bars">
-              {activePanel?.days?.map((d: any, i: number) => (
-                <div 
-                  key={i} 
-                  className={`mbar ${i === activeDayIndex ? 'peak' : ''}`}
-                  style={{ 
-                    height: `${Math.max(3, Math.round((d.commits / activePanel.maxC) * 28))}px`,
-                    background: i === activeDayIndex ? 'var(--accent)' : undefined
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-          <div style={{textAlign: 'right'}}>
-            <div className="panel-count">
-              {activeDayIndex !== null ? activePanel.days[activeDayIndex].commits : (activePanel?.total || '-')}
-            </div>
-            <div className="panel-count-sub">
-              {activeDayIndex !== null ? 'on this day' : 'this week'}
-            </div>
-          </div>
-        </div>
+      {/* Pinned card (opens on click, interactive & scrollable) */}
+      <div
+        ref={pinnedRef}
+        className={`panel panel-pinned ${pinned ? 'open' : ''}`}
+      >
+        <button className="panel-close" aria-label="Close" onClick={() => setPinned(null)}>×</button>
+        {pinned && <PanelBody panel={pinned.panel} dayIndex={pinned.dayIndex} />}
       </div>
     </>
   );

@@ -30,6 +30,11 @@ const query = `
                     message
                     committedDate
                     oid
+                    author {
+                      user {
+                        login
+                      }
+                    }
                   }
                 }
               }
@@ -40,6 +45,21 @@ const query = `
     }
   }
 `;
+
+// GitHub's contribution calendar buckets days in the account's local timezone,
+// but commit/event timestamps come back in UTC. Convert to the local zone before
+// deriving the YYYY-MM-DD bucket so tooltips line up with the lit calendar cell.
+const TIMEZONE = process.env.GITHUB_TIMEZONE || "Asia/Kolkata";
+
+function toLocalDateStr(iso: string): string {
+  // en-CA formats as YYYY-MM-DD.
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(iso));
+}
 
 function mapLevel(level: string): number {
   switch (level) {
@@ -121,7 +141,15 @@ export async function GET() {
     repositories.forEach((repo: any) => {
       const commits = repo.defaultBranchRef?.target?.history?.nodes || [];
       commits.forEach((commit: any) => {
-        const dateStr = commit.committedDate.split("T")[0]; // YYYY-MM-DD
+        // Only count commits authored by the user. Forks / collaborator repos
+        // (e.g. reductstore) carry upstream commits by other people on their own
+        // dates; without this filter they pollute the graph on the wrong days.
+        const authorLogin = commit.author?.user?.login;
+        if (!authorLogin || authorLogin.toLowerCase() !== username.toLowerCase()) {
+          return;
+        }
+
+        const dateStr = toLocalDateStr(commit.committedDate); // local YYYY-MM-DD
         if (!dailyCommitsMap[dateStr]) {
           dailyCommitsMap[dateStr] = [];
         }
@@ -130,6 +158,7 @@ export async function GET() {
         const exists = dailyCommitsMap[dateStr].some((c: any) => c.sha === shortSha);
         if (!exists) {
           dailyCommitsMap[dateStr].push({
+            type: "commit",
             repo: repo.name,
             message: commit.message.split("\n")[0], // Keep commit message headline
             time: commit.committedDate,
@@ -139,12 +168,26 @@ export async function GET() {
       });
     });
 
-    // 4. Process REST Events API (to overlay precise push times for recent events)
+    // Helper: record a non-commit activity (PR, merge, issue, review) on its day.
+    const pushActivity = (event: any, kind: string, message: string) => {
+      const dateStr = toLocalDateStr(event.created_at); // local YYYY-MM-DD
+      if (!dailyCommitsMap[dateStr]) dailyCommitsMap[dateStr] = [];
+      const repo = event.repo?.name?.split("/")[1] || event.repo?.name || "";
+      const dup = dailyCommitsMap[dateStr].some(
+        (c: any) => c.type === kind && c.message === message
+      );
+      if (!dup) {
+        dailyCommitsMap[dateStr].push({ type: kind, repo, message, time: event.created_at });
+      }
+    };
+
+    // 4. Process REST Events API (to overlay precise push times for recent events,
+    //    plus non-commit activity: PRs opened/merged, issues opened, reviews).
     if (Array.isArray(eventsJson)) {
       eventsJson.forEach((event: any) => {
         if (event.type === "PushEvent" && event.payload?.commits) {
-          const dateStr = event.created_at.split("T")[0]; // YYYY-MM-DD
-          
+          const dateStr = toLocalDateStr(event.created_at); // local YYYY-MM-DD
+
           if (!dailyCommitsMap[dateStr]) {
             dailyCommitsMap[dateStr] = [];
           }
@@ -154,6 +197,7 @@ export async function GET() {
             const exists = dailyCommitsMap[dateStr].some((c: any) => c.sha === shortSha);
             if (!exists) {
               dailyCommitsMap[dateStr].push({
+                type: "commit",
                 repo: event.repo.name.split("/")[1] || event.repo.name,
                 message: commit.message.split("\n")[0],
                 time: event.created_at, // Precise REST push time
@@ -167,6 +211,38 @@ export async function GET() {
               }
             }
           });
+        } else if (event.type === "PullRequestEvent") {
+          // PRs opened and PRs merged.
+          const action = event.payload?.action;
+          const pr = event.payload?.pull_request;
+          const num = event.payload?.number ?? pr?.number;
+          if (!pr || num == null) return;
+
+          let kind: string | null = null;
+          if (action === "opened" || action === "reopened") {
+            kind = "pull_request";
+          } else if (action === "merged" || (action === "closed" && pr.merged)) {
+            // The user events feed reports merges as action "merged" (and returns a
+            // slim PR object); the classic REST shape is action "closed" + merged=true.
+            kind = "pull_request_merged";
+          }
+          if (!kind) return;
+
+          // PR title is often absent for cross-repo PRs in the events feed; fall back to just "#num".
+          pushActivity(event, kind, `#${num} ${pr.title || ""}`.trim());
+        } else if (event.type === "IssuesEvent") {
+          // Issues opened.
+          const action = event.payload?.action;
+          const issue = event.payload?.issue;
+          if ((action === "opened" || action === "reopened") && issue) {
+            pushActivity(event, "issue", `#${issue.number} ${issue.title || ""}`.trim());
+          }
+        } else if (event.type === "PullRequestReviewEvent") {
+          // PR reviews submitted.
+          const pr = event.payload?.pull_request;
+          if (pr) {
+            pushActivity(event, "review", `#${pr.number} ${pr.title || ""}`.trim());
+          }
         }
       });
     }
