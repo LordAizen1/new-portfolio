@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 
 const GITHUB_GRAPHQL_API = "https://api.github.com/graphql";
 
+// Run per-request. Without this, Next.js can statically render this route at build
+// time and cache the result, so a build without a valid GITHUB_TOKEN would serve a
+// baked-in error forever even after the env var is set.
+export const dynamic = "force-dynamic";
+
 const query = `
   query($since: GitTimestamp!) {
     viewer {

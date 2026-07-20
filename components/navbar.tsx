@@ -7,12 +7,10 @@ import { useEffect, useRef, useState } from "react";
 const EASTER_EGG_URL = "https://clowder-eosin.vercel.app/";
 const CAT_SEQUENCE = "cat";
 
+// Section anchors are intentionally minimal — the home page already surfaces every
+// section as you scroll, so mirroring them all in the navbar was redundant.
 const SECTIONS = [
   { id: "hero", label: "home", path: "/#" },
-  { id: "graph", label: "activity", path: "/#graph" },
-  { id: "work", label: "work", path: "/#work" },
-  { id: "skills", label: "skills", path: "/#skills" },
-  { id: "about", label: "analog", path: "/#about" },
   { id: "contact", label: "contact", path: "/#contact" }
 ];
 
@@ -123,13 +121,9 @@ export function Navbar() {
           mohammad.kaif
         </Link>
         <ul className="nav-links">
-          <li><Link href="/#graph">activity</Link></li>
-          <li><Link href="/#work">work</Link></li>
-          <li><Link href="/#skills">skills</Link></li>
-          <li><Link href="/#about">analog</Link></li>
-          <li><Link href="/#contact">contact</Link></li>
           <li><Link href="/projects">projects</Link></li>
           <li><Link href="/resume">resume</Link></li>
+          <li><Link href="/#contact">contact</Link></li>
         </ul>
       </div>
 

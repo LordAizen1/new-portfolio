@@ -3,60 +3,7 @@
 import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { Newspaper, Brain, FileMagnifyingGlass } from "@phosphor-icons/react";
-
-// --- Data ---
-const PROJECTS = [
-  {
-    name: 'git-newspaper',
-    impact: 'trending on Reddit within 24 hours',
-    desc: 'CLI that turns any git repo\'s history into a Victorian broadsheet newspaper. Hundreds of stars. Zero LLM dependency.',
-    tech: ['Node.js', 'CLI', 'npm'],
-    weeks: [0, 1, 2, 3, 4, 5, 6, 7], hi: 4
-  },
-  {
-    name: 'EverMemOS Plugin',
-    impact: 'durable structured memory for OpenCode',
-    desc: 'OpenCode plugin implementing durable structured memory, featuring passive capture, automatic recall, and git-scoped episodic/profile/foresight memory across coding sessions.',
-    tech: ['TypeScript', 'OpenCode', 'LLM Memory'],
-    weeks: [8, 9, 10, 11, 12, 13, 14, 15], hi: 3
-  },
-  {
-    name: 'LlamaIndex RAG App',
-    impact: '100% retrieval, 92-96% answer accuracy',
-    desc: 'Document Q&A over uploaded PDF/DOCX/Markdown with expandable source citations, streaming responses, and a hallucination guard that admits when the answer isn\'t in the docs.',
-    tech: ['FastAPI', 'LlamaIndex', 'ChromaDB'],
-    weeks: [16, 17, 18, 19, 20, 21, 22], hi: 4
-  },
-  {
-    name: 'AI Engineering & Agents',
-    impact: 'RAG & Tool Planning',
-    desc: 'Deep dives into LLM Agent Architectures, MCTS for tool planning, and building custom autonomous workflows using various APIs.',
-    tech: ['OpenAI', 'Gemini', 'LangChain'],
-    weeks: [23, 24, 25, 26, 27, 28, 29, 30], hi: 3
-  },
-  {
-    name: 'Full-Stack Applications',
-    impact: 'High-performance interactive web',
-    desc: 'Building responsive, beautifully animated frontend applications using React and Next.js, backed by robust FastAPI and PostgreSQL services.',
-    tech: ['React', 'Next.js', 'FastAPI'],
-    weeks: [31, 32, 33, 34, 35, 36, 37, 38], hi: 3
-  },
-  {
-    name: 'Open Source Contributions',
-    impact: '14+ Projects Built',
-    desc: 'Publishing npm packages, fixing upstream bugs, and maintaining a healthy open source presence.',
-    tech: ['OSS', 'TypeScript', 'Python'],
-    weeks: [39, 40, 41, 42, 43, 44, 45], hi: 2
-  },
-  {
-    name: 'IIIT-Delhi Academics',
-    impact: 'CS Class of 2026',
-    desc: 'Core computer science coursework, research projects, and university assignments.',
-    tech: ['C++', 'Python', 'Algorithms'],
-    weeks: [46, 47, 48, 49, 50, 51], hi: 3
-  },
-];
+import { Newspaper, Brain, FileMagnifyingGlass, GitPullRequest } from "@phosphor-icons/react";
 
 const SONGS = [
   {
@@ -89,6 +36,55 @@ const FALLBACK = {
     tech: ['Various'],
 };
 
+// Curated open source contributions (external projects).
+const OSS_SUMMARY =
+  "9 merged pull requests into external open source projects in July 2026, mostly parser and spec-compliance fixes in Rust and Zig systems tools. Bug reports also filed on BurntSushi/ripgrep and google/osv.dev.";
+
+const OSS = [
+  {
+    repo: 'reductstore/reductstore',
+    pr: '#1546',
+    lang: 'Rust',
+    desc: "Fixed parse_forwarded_for dropping client IPs from multi-hop RFC 7239 Forwarded headers in audit logs, plus $system bucket quota handling. Three merged PRs.",
+    link: 'https://github.com/reductstore/reductstore/pull/1546',
+  },
+  {
+    repo: 'rockorager/libvaxis',
+    pr: '#353',
+    lang: 'Zig',
+    desc: "OSC parser read past a BEL terminator and consumed the next escape sequence, which could silently kill input. Reported and fixed.",
+    link: 'https://github.com/rockorager/libvaxis/pull/353',
+  },
+  {
+    repo: 'HaoboGu/rmk',
+    pr: '#964',
+    lang: 'Rust',
+    desc: "VIA macro buffer trusted a host-supplied size byte, so an oversized write panicked out of bounds. Reported and fixed.",
+    link: 'https://github.com/HaoboGu/rmk/pull/964',
+  },
+  {
+    repo: 'ccbrown/iocraft',
+    pr: '#214',
+    lang: 'Rust',
+    desc: "Corrected CSI final-byte classification and stripped DCS/APC/PM escape sequences leaking into rendered output.",
+    link: 'https://github.com/ccbrown/iocraft/pull/214',
+  },
+  {
+    repo: 'tombi-toml/tombi',
+    pr: '#2024',
+    lang: 'Rust',
+    desc: "Date-time parsing rejected the valid leap second value 60; brought it in line with the TOML and RFC 3339 specs.",
+    link: 'https://github.com/tombi-toml/tombi/pull/2024',
+  },
+  {
+    repo: 'jdx/hk',
+    pr: '#1071',
+    lang: 'Rust',
+    desc: "Conventional-commit check accepted empty and malformed scopes; tightened parsing to reject them.",
+    link: 'https://github.com/jdx/hk/pull/1071',
+  },
+];
+
 // Badge label + color per GitHub activity type shown in the day tooltip.
 const ACTIVITY_META: Record<string, { label: string; color: string }> = {
   commit: { label: 'commit', color: '#3dd68c' },
@@ -98,61 +94,9 @@ const ACTIVITY_META: Record<string, { label: string; color: string }> = {
   review: { label: 'review', color: '#39c5cf' },
 };
 
-const weekMap: Record<number, any> = {};
-PROJECTS.forEach(p => p.weeks.forEach(w => weekMap[w] = p));
-
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-function genData() {
-    const data = [];
-    const now = new Date();
-    const start = new Date();
-    start.setFullYear(start.getFullYear() - 1);
-    // backtrack to nearest Sunday
-    while (start.getDay() !== 0) start.setDate(start.getDate() - 1);
 
-    for (let w = 0; w < 52; w++) {
-        const proj = weekMap[w];
-        const hi = proj ? proj.hi : 1;
-        const days = [];
-        for (let d = 0; d < 7; d++) {
-            const date = new Date(start);
-            date.setDate(date.getDate() + w * 7 + d);
-            if (date > now) { days.push({ date, level: 0, commits: 0, commitDetails: null }); continue; }
-            const isWE = d === 0 || d === 6;
-            const r = Math.random();
-            let level;
-            if (isWE) {
-                level = r < .45 ? 0 : r < .72 ? 1 : r < .9 ? 2 : 3;
-            } else {
-                level = r < .06 ? 0 : r < .22 ? 1 : r < .48 ? 2 : r < .78 ? 3 : 4;
-            }
-            if (proj && level > 0) level = Math.min(4, level + Math.floor(hi / 2));
-            const commits = level === 0 ? 0 : level * 3 + Math.floor(Math.random() * 6);
-            
-            const commitDetails = [];
-            if (commits > 0) {
-              const projName = proj ? proj.name : 'Maintenance';
-              for (let c = 0; c < commits; c++) {
-                const hour = Math.floor(Math.random() * 12) + 9; // 9 AM to 9 PM
-                const min = Math.floor(Math.random() * 60);
-                const mockDate = new Date(date);
-                mockDate.setHours(hour, min);
-                commitDetails.push({
-                  repo: projName.toLowerCase().replace(/\s+/g, '-'),
-                  message: c === 0 ? `feat: initialize core pipeline for ${projName}` : `refactor: optimize ${projName} modules`,
-                  time: mockDate.toISOString(),
-                  sha: Math.random().toString(16).substring(2, 9)
-                });
-              }
-            }
-
-            days.push({ date, level, commits, commitDetails });
-        }
-        data.push({ w, days, proj });
-    }
-    return data;
-}
 
 // Shared inner content for both the hover tooltip and the pinned card.
 function PanelBody({ panel, dayIndex }: { panel: any; dayIndex: number | null }) {
@@ -264,6 +208,7 @@ function PanelBody({ panel, dayIndex }: { panel: any; dayIndex: number | null })
 
 export default function Home() {
   const [graphData, setGraphData] = useState<any[]>([]);
+  const [graphError, setGraphError] = useState<string | null>(null);
   const [activePanel, setActivePanel] = useState<any | null>(null);
   const [activeDayIndex, setActiveDayIndex] = useState<number | null>(null);
   const [cellRect, setCellRect] = useState<DOMRect | null>(null);
@@ -479,14 +424,17 @@ export default function Home() {
         const elapsed = Date.now() - startTime;
         const delay = Math.max(0, 1200 - elapsed);
         setTimeout(() => {
+          setGraphError(null);
           setGraphData(parsedWeeks.slice(-35)); // Slice to last 35 weeks (approx. 8 months) for high density
         }, delay);
       } catch (err) {
-        console.warn("GitHub API not configured or failed. Falling back to simulated data.", err);
+        // No fabricated data: show an honest empty state instead.
+        console.error("GitHub activity could not be loaded.", err);
         const elapsed = Date.now() - startTime;
         const delay = Math.max(0, 1200 - elapsed);
         setTimeout(() => {
-          setGraphData(genData().slice(-35));
+          setGraphData([]);
+          setGraphError(err instanceof Error ? err.message : "unknown error");
         }, delay);
       }
     }
@@ -590,7 +538,7 @@ export default function Home() {
       <main>
         {/* Hero */}
         <section className="hero">
-          <div className="hero-eyebrow">software engineer</div>
+          <div className="hero-eyebrow">software development engineer</div>
           <h1 className="hero-name">Mohammad <em>Kaif</em></h1>
           <p className="hero-tagline">
             I build high-throughput distributed systems and clean interfaces, shipping
@@ -622,8 +570,17 @@ export default function Home() {
             <div className="graph-container">
               <div className="month-row">
                 {graphData.length === 0 ? (
-                  <div className="month-lbl" style={{ opacity: 0.35, animation: 'pulseText 1.6s infinite', textTransform: 'lowercase', letterSpacing: '.06em' }}>
-                    loading shipping history...
+                  <div
+                    className="month-lbl"
+                    style={{
+                      opacity: graphError ? 0.5 : 0.35,
+                      animation: graphError ? undefined : 'pulseText 1.6s infinite',
+                      textTransform: 'lowercase',
+                      letterSpacing: '.06em',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {graphError ? 'activity unavailable — could not load GitHub data' : 'loading shipping history...'}
                   </div>
                 ) : (
                   graphData.map(({ days }, i) => {
@@ -650,15 +607,15 @@ export default function Home() {
                 </div>
                 <div className="graph-grid">
                   {graphData.length === 0 ? (
+                    // Loading: shimmer. Error: flat empty grid (never fabricated data).
                     Array.from({ length: 35 }).map((_, wIdx) => (
                       <div key={wIdx} className="week-col">
                         {Array.from({ length: 7 }).map((_, dIdx) => (
-                          <div 
-                            key={dIdx} 
-                            className="cell pulse-cell" 
-                            style={{ 
-                              animationDelay: `${wIdx * 35 + dIdx * 10}ms` 
-                            }}
+                          <div
+                            key={dIdx}
+                            className={`cell ${graphError ? '' : 'pulse-cell'}`}
+                            data-l={graphError ? 0 : undefined}
+                            style={graphError ? undefined : { animationDelay: `${wIdx * 35 + dIdx * 10}ms` }}
                           />
                         ))}
                       </div>
@@ -796,6 +753,40 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Open Source */}
+        <section className="work-section" id="open-source">
+          <div className="sec-head">
+            <span className="sec-label">open source</span>
+            <div className="sec-line"></div>
+          </div>
+          <p style={{ fontSize: '12px', color: 'var(--ts)', margin: '0 0 2rem', lineHeight: '1.8' }}>
+            {OSS_SUMMARY}
+          </p>
+          <div className="projects-grid">
+            {OSS.map((o) => (
+              <div key={o.repo} className="pcard">
+                <div className="pcard-top">
+                  <div className="pcard-icon" style={{ background: '#1a1035' }}>
+                    <GitPullRequest size={20} weight="duotone" color="#c084fc" />
+                  </div>
+                  <a className="pcard-link" href={o.link} target="_blank" rel="noopener noreferrer">
+                    {o.pr} →
+                  </a>
+                </div>
+                <div className="pcard-name">{o.repo}</div>
+                <div className="pcard-desc">{o.desc}</div>
+                <div className="pcard-meta">
+                  <div className="pcard-stack">
+                    <span className="pstack-tag">{o.lang}</span>
+                    <span className="pstack-tag" style={{ margin: '0 4px' }}>·</span>
+                    <span className="pstack-tag">merged</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Skills */}
         <section className="skills-section" id="skills">
           <div className="sec-head">
@@ -827,7 +818,7 @@ export default function Home() {
                 <li className="sitem"><span className="sdot"></span>14+ Projects Built</li>
                 <li className="sitem"><span className="sdot"></span>4 Paid Contracts Completed</li>
                 <li className="sitem"><span className="sdot"></span>npm Packages Published</li>
-                <li className="sitem"><span className="sdot"></span>Open Source Contributor</li>
+                <li className="sitem"><span className="sdot"></span>9 Merged OSS Pull Requests</li>
               </ul>
             </div>
             <div className="sgroup">
