@@ -29,10 +29,19 @@ const BRAND_BG: Record<string, string> = { Google: '#0d1117', IBM: '#0d1117' };
 
 const experience = [
   {
+    company: "slice",
+    role: "SDE Intern (Incoming)",
+    duration: "Starting Jul 30, 2026",
+    link: "https://slice.bank.in/",
+    logo: "/images/logos/slice.bank.in.png",
+    bullets: [],
+  },
+  {
     company: "Tint",
     role: "Software Engineer",
     duration: "Apr 2026 – Present",
     link: "https://tintindia.com",
+    logo: "/images/logos/tintindia.png",
     bullets: [
       "System Design & Backend: Architected a live AI travel platform on a single async FastAPI backend serving web, mobile, and admin, with Redis rate limiting and session caching. Built a three-stage itinerary pipeline behind an async-polling API, and migrated it from OpenAI to Gemini to cut latency and cost.",
       "Auth & Partner CRM: Built a three-principal JWT auth system (consumer/admin/partner) with phone OTP, TOTP 2FA, and encrypted KYC, plus a supply-side CRM and self-service portal for hosts, guides, and agencies.",
@@ -45,6 +54,7 @@ const experience = [
     role: "Full Stack Developer (Contract)",
     duration: "Jan 2026 – Apr 2026",
     link: "https://2070health.com/",
+    logo: "/images/logos/2070health.com.png",
     bullets: [
       "Frontend engineer on EverHope (10k+ users). Built patient-facing pages across oncology, nutrition, and diagnostics from Figma with responsive layouts and content updates.",
       "Built end-to-end appointment booking (OTP, live EHR, Razorpay, Salesforce CRM sync); led SSR migration and SEO overhaul across 50+ pages; caught a Docker misconfiguration routing traffic to staging.",
@@ -55,6 +65,7 @@ const experience = [
     role: "Full Stack Developer",
     duration: "Jan 2025 – Dec 2025",
     link: "https://www.digitow.design/",
+    logo: "/images/logos/digitow.design.png",
     bullets: [
       "Built Fanclash end-to-end as a full-stack developer, implementing both the React/Next.js frontend and Node.js backend services with REST API integration.",
       "Developed the Kicksal frontend in React/Next.js, building responsive, reusable UI components and integrating them with backend APIs.",
@@ -66,6 +77,7 @@ const experience = [
     role: "Freelance Software Engineer",
     duration: "Jun 2024 – Dec 2024",
     link: "https://www.kuzushilabs.ai/",
+    logo: "/images/logos/kuzushilabs.ai.png",
     bullets: [
       "Built Anowmly from scratch: custom hero animation (rectangle-to-cube), WebPlayer, film-strip carousel, and contact form. Migrated video assets to Cloudinary. Stack: Next.js, TypeScript, Framer Motion, Tailwind CSS.",
       "Shipped Kuzushi Labs' site with GSAP, Three.js 3D, Framer Motion, and Lenis on Next.js 16 / React 19. Rebuilt the Healthtech-Redefined design system with shadcn/ui and Tailwind CSS.",
@@ -113,60 +125,6 @@ const skills = [
   { label: "AWS & DevOps", items: "S3, App Runner, RDS, ElastiCache, Amplify, Railway, Docker, Nginx, GitHub Actions, GCP, PM2, Git/GitHub" },
   { label: "Databases", items: "PostgreSQL (Neon), MongoDB, Redis (Upstash), Firebase" },
   { label: "Integrations", items: "JWT/Auth, Razorpay, Twilio, Salesforce, Cloudinary, SendGrid, Tavily" },
-];
-
-const openSourceSummary =
-  "9 merged pull requests into external open source projects in July 2026, mostly parser and spec-compliance fixes in Rust and Zig systems tools. Also merged in rvben/rumdl, with an open PR in Vexu/arocc and bug reports filed on BurntSushi/ripgrep and google/osv.dev.";
-
-const openSource = [
-  {
-    title: "RFC 7239 Forwarded parsing & $system bucket quotas",
-    org: "reductstore/reductstore",
-    duration: "Jul 2026",
-    description:
-      "Three merged PRs to a Rust time-series database. Fixed parse_forwarded_for dropping client IPs from multi-hop RFC 7239 Forwarded headers in audit logs, made $system a provisioned bucket that reapplies its quota on restart, and set a default for RS_SYSTEM_EVENTS_QUOTA_SIZE.",
-    link: "https://github.com/reductstore/reductstore/pull/1546",
-  },
-  {
-    title: "OSC parser terminated on BEL or ST",
-    org: "rockorager/libvaxis",
-    duration: "Jul 2026",
-    description:
-      "Zig terminal UI library. The OSC parser read past a BEL terminator and consumed the following escape sequence, which could silently kill input. Reported the issue and shipped the fix.",
-    link: "https://github.com/rockorager/libvaxis/pull/353",
-  },
-  {
-    title: "Out-of-bounds panic from a host-controlled size byte",
-    org: "HaoboGu/rmk",
-    duration: "Jul 2026",
-    description:
-      "Rust keyboard firmware. VIA's DynamicKeymapMacroSetBuffer trusted a host-supplied size byte, so an oversized macro write panicked out of bounds. Reported and fixed by rejecting oversized buffers.",
-    link: "https://github.com/HaoboGu/rmk/pull/964",
-  },
-  {
-    title: "CSI final byte handling and DCS/APC/PM stripping",
-    org: "ccbrown/iocraft",
-    duration: "Jul 2026",
-    description:
-      "Rust terminal UI crate. Corrected CSI final-byte classification and stripped DCS/APC/PM escape sequences that were leaking into rendered output.",
-    link: "https://github.com/ccbrown/iocraft/pull/214",
-  },
-  {
-    title: "Leap second 60 accepted in date-time values",
-    org: "tombi-toml/tombi",
-    duration: "Jul 2026",
-    description:
-      "Rust TOML toolchain. Date-time parsing rejected the valid leap second value 60; brought it in line with the TOML and RFC 3339 specs.",
-    link: "https://github.com/tombi-toml/tombi/pull/2024",
-  },
-  {
-    title: "Conventional-commit scope validation",
-    org: "jdx/hk",
-    duration: "Jul 2026",
-    description:
-      "Rust git hook manager. The conventional-commit check accepted empty and malformed scopes; tightened parsing to reject them.",
-    link: "https://github.com/jdx/hk/pull/1071",
-  },
 ];
 
 const achievements = [
@@ -231,7 +189,7 @@ export default function ResumePage() {
       <section style={{ marginBottom: '3rem' }}>
         <div className="sec-head"><span className="sec-label">summary</span><div className="sec-line"></div></div>
         <p style={{ marginTop: '1.5rem', fontSize: '13px', color: 'var(--ts)', lineHeight: 1.9 }}>
-          Full-stack engineer with production experience across healthcare and travel tech. Currently Founding Engineer at Tint, building a FastAPI + Next.js platform on AWS with a Gemini-powered itinerary generation pipeline and a cross-platform Expo / React Native app. IIIT Delhi CSE 2026 grad with a side interest in quantum computing (IBM Qiskit Global Summer School 2024) who likes shipping things that work.
+          Full-stack engineer with production experience across healthcare and travel tech. Incoming SDE Intern at slice; currently Software Engineer at Tint, building a FastAPI + Next.js platform on AWS with a Gemini-powered itinerary generation pipeline and a cross-platform Expo / React Native app. IIIT Delhi CSE 2026 grad with a side interest in quantum computing (IBM Qiskit Global Summer School 2024) who likes shipping things that work.
         </p>
       </section>
 
@@ -241,8 +199,16 @@ export default function ResumePage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '1.5rem' }}>
           {experience.map((exp) => (
             <div key={exp.company}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.6rem' }}>
-                <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.6rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  {exp.logo && (
+                    <img
+                      src={exp.logo}
+                      alt=""
+                      aria-hidden="true"
+                      style={{ width: '20px', height: '20px', objectFit: 'cover', borderRadius: '4px', flexShrink: 0, display: 'block' }}
+                    />
+                  )}
                   <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tp)', fontFamily: 'var(--font-mono)' }}>
                     {exp.link ? (
                       <a href={exp.link} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tp)', textDecoration: 'none' }}>
@@ -250,7 +216,7 @@ export default function ResumePage() {
                       </a>
                     ) : exp.company}
                   </span>
-                  <span style={{ fontSize: '12px', color: 'var(--ts)', marginLeft: '0.5rem' }}>· {exp.role}</span>
+                  <span style={{ fontSize: '12px', color: 'var(--ts)' }}>· {exp.role}</span>
                 </div>
                 <span style={{ fontSize: '11px', color: 'var(--tm)', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>{exp.duration}</span>
               </div>
@@ -309,35 +275,6 @@ export default function ResumePage() {
                 {s.label}
               </span>
               <span style={{ fontSize: '12px', color: 'var(--ts)', lineHeight: 1.8 }}>{s.items}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Open Source ── */}
-      <section style={{ marginBottom: '4rem' }}>
-        <div className="sec-head"><span className="sec-label">open source</span><div className="sec-line"></div></div>
-        <p style={{ marginTop: '1.5rem', fontSize: '12px', color: 'var(--ts)', lineHeight: 1.9 }}>
-          {openSourceSummary}
-        </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', marginTop: '2rem' }}>
-          {openSource.map((item) => (
-            <div key={item.title} className="pcard" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
-                <div>
-                  <h3 className="pcard-name" style={{ margin: 0 }}>{item.title}</h3>
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ fontSize: '11px', color: 'var(--accent)', textDecoration: 'none', letterSpacing: '.06em', fontFamily: 'var(--font-mono)' }}
-                  >
-                    {item.org} <ArrowUpRight />
-                  </a>
-                </div>
-                <span style={{ fontSize: '11px', color: 'var(--tm)', fontFamily: 'var(--font-mono)' }}>{item.duration}</span>
-              </div>
-              <div style={{ fontSize: '12px', color: 'var(--ts)', lineHeight: '1.8' }}>{item.description}</div>
             </div>
           ))}
         </div>

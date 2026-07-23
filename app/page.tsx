@@ -36,55 +36,6 @@ const FALLBACK = {
     tech: ['Various'],
 };
 
-// Curated open source contributions (external projects).
-const OSS_SUMMARY =
-  "9 merged pull requests into external open source projects in July 2026, mostly parser and spec-compliance fixes in Rust and Zig systems tools. Bug reports also filed on BurntSushi/ripgrep and google/osv.dev.";
-
-const OSS = [
-  {
-    repo: 'reductstore/reductstore',
-    pr: '#1546',
-    lang: 'Rust',
-    desc: "Fixed parse_forwarded_for dropping client IPs from multi-hop RFC 7239 Forwarded headers in audit logs, plus $system bucket quota handling. Three merged PRs.",
-    link: 'https://github.com/reductstore/reductstore/pull/1546',
-  },
-  {
-    repo: 'rockorager/libvaxis',
-    pr: '#353',
-    lang: 'Zig',
-    desc: "OSC parser read past a BEL terminator and consumed the next escape sequence, which could silently kill input. Reported and fixed.",
-    link: 'https://github.com/rockorager/libvaxis/pull/353',
-  },
-  {
-    repo: 'HaoboGu/rmk',
-    pr: '#964',
-    lang: 'Rust',
-    desc: "VIA macro buffer trusted a host-supplied size byte, so an oversized write panicked out of bounds. Reported and fixed.",
-    link: 'https://github.com/HaoboGu/rmk/pull/964',
-  },
-  {
-    repo: 'ccbrown/iocraft',
-    pr: '#214',
-    lang: 'Rust',
-    desc: "Corrected CSI final-byte classification and stripped DCS/APC/PM escape sequences leaking into rendered output.",
-    link: 'https://github.com/ccbrown/iocraft/pull/214',
-  },
-  {
-    repo: 'tombi-toml/tombi',
-    pr: '#2024',
-    lang: 'Rust',
-    desc: "Date-time parsing rejected the valid leap second value 60; brought it in line with the TOML and RFC 3339 specs.",
-    link: 'https://github.com/tombi-toml/tombi/pull/2024',
-  },
-  {
-    repo: 'jdx/hk',
-    pr: '#1071',
-    lang: 'Rust',
-    desc: "Conventional-commit check accepted empty and malformed scopes; tightened parsing to reject them.",
-    link: 'https://github.com/jdx/hk/pull/1071',
-  },
-];
-
 // Badge label + color per GitHub activity type shown in the day tooltip.
 const ACTIVITY_META: Record<string, { label: string; color: string }> = {
   commit: { label: 'commit', color: '#3dd68c' },
@@ -209,6 +160,8 @@ function PanelBody({ panel, dayIndex }: { panel: any; dayIndex: number | null })
 export default function Home() {
   const [graphData, setGraphData] = useState<any[]>([]);
   const [graphError, setGraphError] = useState<string | null>(null);
+  // Latest merged external PRs; null = not loaded / failed (section hidden).
+  const [ossPrs, setOssPrs] = useState<{ total: number; prs: any[] } | null>(null);
   const [activePanel, setActivePanel] = useState<any | null>(null);
   const [activeDayIndex, setActiveDayIndex] = useState<number | null>(null);
   const [cellRect, setCellRect] = useState<DOMRect | null>(null);
@@ -440,6 +393,15 @@ export default function Home() {
     }
 
     loadGithubData();
+
+    // Latest merged external PRs for the open source section. On any failure the
+    // section simply stays hidden — never show stale or fabricated data.
+    fetch("/api/github/prs")
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`status ${res.status}`))))
+      .then((json) => {
+        if (json?.prs?.length) setOssPrs(json);
+      })
+      .catch((err) => console.error("Could not load merged PRs.", err));
 
     const handleResize = () => {
       if (panelRef.current) {
@@ -753,39 +715,48 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Open Source */}
-        <section className="work-section" id="open-source">
-          <div className="sec-head">
-            <span className="sec-label">open source</span>
-            <div className="sec-line"></div>
-          </div>
-          <p style={{ fontSize: '12px', color: 'var(--ts)', margin: '0 0 2rem', lineHeight: '1.8' }}>
-            {OSS_SUMMARY}
-          </p>
-          <div className="projects-grid">
-            {OSS.map((o) => (
-              <div key={o.repo} className="pcard">
-                <div className="pcard-top">
-                  <div className="pcard-icon" style={{ background: '#1a1035' }}>
-                    <GitPullRequest size={20} weight="duotone" color="#c084fc" />
+        {/* Open Source — latest merged external PRs, live from GitHub */}
+        {ossPrs && (
+          <section className="work-section" id="open-source">
+            <div className="sec-head">
+              <span className="sec-label">open source</span>
+              <div className="sec-line"></div>
+            </div>
+            <p style={{ fontSize: '12px', color: 'var(--ts)', margin: '0 0 2rem', lineHeight: '1.8' }}>
+              {ossPrs.total} merged pull request{ossPrs.total === 1 ? '' : 's'} into external open source projects.
+              The latest three, pulled live from GitHub:
+            </p>
+            <div className="projects-grid">
+              {ossPrs.prs.map((pr) => (
+                <div key={pr.url} className="pcard">
+                  <div className="pcard-top">
+                    <div className="pcard-icon" style={{ background: '#1a1035' }}>
+                      <GitPullRequest size={20} weight="duotone" color="#c084fc" />
+                    </div>
+                    <a className="pcard-link" href={pr.url} target="_blank" rel="noopener noreferrer">
+                      #{pr.number} →
+                    </a>
                   </div>
-                  <a className="pcard-link" href={o.link} target="_blank" rel="noopener noreferrer">
-                    {o.pr} →
-                  </a>
-                </div>
-                <div className="pcard-name">{o.repo}</div>
-                <div className="pcard-desc">{o.desc}</div>
-                <div className="pcard-meta">
-                  <div className="pcard-stack">
-                    <span className="pstack-tag">{o.lang}</span>
-                    <span className="pstack-tag" style={{ margin: '0 4px' }}>·</span>
-                    <span className="pstack-tag">merged</span>
+                  <div className="pcard-name">{pr.repo}</div>
+                  <div className="pcard-desc">{pr.title}</div>
+                  <div className="pcard-meta">
+                    <div className="pcard-stack">
+                      <span className="pstack-tag">merged</span>
+                      {pr.mergedAt && (
+                        <>
+                          <span className="pstack-tag" style={{ margin: '0 4px' }}>·</span>
+                          <span className="pstack-tag">
+                            {new Date(pr.mergedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          </span>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Skills */}
         <section className="skills-section" id="skills">
@@ -818,7 +789,7 @@ export default function Home() {
                 <li className="sitem"><span className="sdot"></span>14+ Projects Built</li>
                 <li className="sitem"><span className="sdot"></span>4 Paid Contracts Completed</li>
                 <li className="sitem"><span className="sdot"></span>npm Packages Published</li>
-                <li className="sitem"><span className="sdot"></span>9 Merged OSS Pull Requests</li>
+                <li className="sitem"><span className="sdot"></span>Merged PRs Across OSS Projects</li>
               </ul>
             </div>
             <div className="sgroup">
