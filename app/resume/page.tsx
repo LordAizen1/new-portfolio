@@ -85,7 +85,7 @@ const projects = [
     duration: "Apr 2026",
     link: "https://github.com/LordAizen1/git-newspaper",
     bullets: [
-      "Open-source npm CLI that trended on r/coolgithubprojects and r/node within 24 hours of launch, picking up 100+ stars and 500+ downloads with zero marketing.",
+      "Open-source npm CLI that trended on r/coolgithubprojects and r/node within 24 hours of launch, picking up 100+ stars and 400+ downloads with zero marketing.",
       "Detects 9 commit-pattern archetypes and renders fully typeset broadsheets with inlined fonts, SVG activity charts, and archetype-specific editorial voice. No LLM dependency, runs fully offline.",
     ],
   },

@@ -19,6 +19,7 @@ import {
   DeviceMobile,
   DiamondsFour,
   FileMagnifyingGlass,
+  Cpu,
 } from "@phosphor-icons/react";
 
 const iconMap: Record<string, React.ComponentType<any>> = {
@@ -40,6 +41,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   DeviceMobile,
   DiamondsFour,
   FileMagnifyingGlass,
+  Cpu,
 };
 
 const projects = [
@@ -47,7 +49,7 @@ const projects = [
     title: "git-newspaper",
     organization: "Self",
     description:
-      "CLI that generates a Victorian broadsheet newspaper from any git repository's history. Gained hundreds of stars and trending on Reddit within 24 hours of launch. Detects repo archetypes, renders typeset HTML with inlined fonts and SVG charts. Zero LLM dependency.",
+      "CLI that generates a Victorian broadsheet newspaper from any git repository's history. Gained 100+ stars and trended on Reddit within 24 hours of launch. Detects repo archetypes, renders typeset HTML with inlined fonts and SVG charts. Zero LLM dependency.",
     tags: ["Node.js", "HTML/CSS/JS"],
     link: "https://github.com/LordAizen1/git-newspaper",
     type: "self",
@@ -75,6 +77,16 @@ const projects = [
     type: "self",
     feat: true,
     icon: "FileMagnifyingGlass",
+  },
+  {
+    title: "dieshot",
+    organization: "Self",
+    description:
+      "npm CLI that draws any codebase as a chip die shot, with 340+ downloads in its first month. Lays folders out with a VLSI-style slicing floorplan and routes imports through the gaps between blocks using A* with a turn penalty. Runs fully on-device with zero runtime dependencies.",
+    tags: ["Node.js", "React 19", "Vite", "SVG"],
+    link: "https://github.com/LordAizen1/dieshot",
+    type: "self",
+    icon: "Cpu",
   },
   {
     title: "NewsForge",
