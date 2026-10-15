@@ -30,11 +30,16 @@ const BRAND_BG: Record<string, string> = { Google: '#0d1117', IBM: '#0d1117' };
 const experience = [
   {
     company: "slice",
-    role: "SDE Intern (Incoming)",
-    duration: "Starting Jul 30, 2026",
+    role: "SDE Intern, Backend · App Payments",
+    duration: "Jul 2026 – Present",
     link: "https://slice.bank.in/",
     logo: "/images/logos/slice.bank.in.png",
-    bullets: [],
+    bullets: [
+      "Workflow Automation: Built an internal Change Management Request (CMR) automation workflow that cut CMRs stuck in pending approval and implementation states by 80%; adopted by 3 teams across slice so far.",
+      "Test Coverage (Go & Java): Raised unit-test coverage on 3 payments services from under 20% to ~80% (Codecov), using a spec-driven Claude Code workflow (/to-spec, /to-ticket) instead of ad-hoc prompting to keep LLM-generated tests consistent across sessions.",
+      "Security & CVE Remediation: Own recurring CVE remediation for 6 production services, triaging AWS Inspector findings weekly as new vulnerabilities are disclosed and patching dependencies and base images to keep production images clean across all severities, critical to low.",
+      "Production Reliability: Discovered and root-caused a data-integrity bug in a third-party payment integration that had silently accumulated 200K+ corrupt records; documented the analysis and handed off the fix. Also fixed and shipped a latent Go panic that could crash a production service.",
+    ],
   },
   {
     company: "Tint",
@@ -61,21 +66,9 @@ const experience = [
     ],
   },
   {
-    company: "Digitow Design Studio",
-    role: "Full Stack Developer",
-    duration: "Jan 2025 – Dec 2025",
-    link: "https://www.digitow.design/",
-    logo: "/images/logos/digitow.design.png",
-    bullets: [
-      "Built Fanclash end-to-end as a full-stack developer, implementing both the React/Next.js frontend and Node.js backend services with REST API integration.",
-      "Developed the Kicksal frontend in React/Next.js, building responsive, reusable UI components and integrating them with backend APIs.",
-      "Worked directly with designers and stakeholders across client projects, translating requirements into production-ready applications delivered on schedule.",
-    ],
-  },
-  {
     company: "Kuzushi Labs",
     role: "Freelance Software Engineer",
-    duration: "Jun 2024 – Dec 2024",
+    duration: "Nov 2025 – Jan 2026",
     link: "https://www.kuzushilabs.ai/",
     logo: "/images/logos/kuzushilabs.ai.png",
     bullets: [
@@ -189,7 +182,7 @@ export default function ResumePage() {
       <section style={{ marginBottom: '3rem' }}>
         <div className="sec-head"><span className="sec-label">summary</span><div className="sec-line"></div></div>
         <p style={{ marginTop: '1.5rem', fontSize: '13px', color: 'var(--ts)', lineHeight: 1.9 }}>
-          Full-stack engineer with production experience across healthcare and travel tech. Incoming SDE Intern at slice; currently Software Engineer at Tint, building a FastAPI + Next.js platform on AWS with a Gemini-powered itinerary generation pipeline and a cross-platform Expo / React Native app. IIIT Delhi CSE 2026 grad with a side interest in quantum computing (IBM Qiskit Global Summer School 2024) who likes shipping things that work.
+          Full-stack engineer with production experience across healthcare and travel tech. Backend SDE Intern on slice's App Payments team; also Software Engineer at Tint, building a FastAPI + Next.js platform on AWS with a Gemini-powered itinerary generation pipeline and a cross-platform Expo / React Native app. IIIT Delhi CSE 2026 grad with a side interest in quantum computing (IBM Qiskit Global Summer School 2024) who likes shipping things that work.
         </p>
       </section>
 
